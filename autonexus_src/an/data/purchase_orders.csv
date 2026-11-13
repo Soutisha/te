@@ -1,0 +1,4 @@
+po_id,supplier_id,part_id,qty,status,value
+PO-001,V1,P000,50,open,95000
+PO-002,V6,P003,20,in_transit,42000
+PO-003,V3,P001,100,received,28000

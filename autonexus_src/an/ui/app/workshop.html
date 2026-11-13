@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Workshop schedule — AutoNexus</title>
+  <link rel="stylesheet" href="/app/shell.css"/>
+</head>
+<body>
+<div class="app">
+  <div id="side"></div>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Workshop schedule</h1>
+        <p>Can we staff the job? Are bays free? What should we reschedule?</p>
+      </div>
+    </div>
+    <div class="auth-bar" id="auth"></div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="actions">
+        <input id="dealer" value="DealerA" style="background:var(--bg);border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:8px"/>
+        <input id="part" value="P000" style="background:var(--bg);border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:8px"/>
+        <button class="btn primary" id="go">Evaluate workshop</button>
+      </div>
+      <p class="sub" style="margin-top:8px">DealerA = Kolkata Central · P000 = BrakePad</p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Can we do the work?</h3>
+        <p class="sub">Skills, bays, blocked repair orders</p>
+        <div id="summary" class="muted">Run evaluation</div>
+      </div>
+      <div class="card">
+        <h3>Reschedule suggestions</h3>
+        <p class="sub">Proposals only — apply via API when ready</p>
+        <table>
+          <thead><tr><th>RO</th><th>Bay</th><th>Start</th><th>Tech</th></tr></thead>
+          <tbody id="sug"><tr><td colspan="4" class="muted">—</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="err" id="err"></p>
+  </main>
+</div>
+<script src="/app/api.js"></script>
+<script>
+document.getElementById("side").innerHTML = sideNav(); navActive(); authBar();
+async function go() {
+  document.getElementById("err").textContent = "";
+  try {
+    const d = document.getElementById("dealer").value.trim();
+    const p = document.getElementById("part").value.trim();
+    const r = await AN.workshop(d, p);
+    document.getElementById("summary").innerHTML = `
+      <p><b>What is happening?</b> ${r.blocked_repair_orders?.length||0} open repair orders for this part.</p>
+      <p><b>Why it matters?</b> Skill needed: <b>${r.required_skill||"n/a"}</b>. Qualified techs: <b>${(r.qualified_available_technicians||[]).length}</b>. Bays free: <b>${r.bays_available}/${r.bays_total}</b>.</p>
+      <p><b>What to do?</b> ${r.can_staff_work ? "You can staff the work once parts arrive." : "Resolve skills/bays or reschedule."}</p>
+      <p class="mono muted">Conflicts: ${(r.appointment_conflicts||[]).length}</p>`;
+    const sug = r.reschedule_suggestions || [];
+    document.getElementById("sug").innerHTML = sug.map(s =>
+      `<tr><td class="mono">${s.repair_order_id}</td><td>${s.proposed_bay}</td><td>${s.proposed_start_hour}:00</td><td>${s.proposed_technician}</td></tr>`
+    ).join("") || '<tr><td colspan="4" class="muted">No suggestions</td></tr>';
+  } catch (e) { document.getElementById("err").textContent = e.message; }
+}
+document.getElementById("go").onclick = go;
+window.onAuth = go;
+</script>
+</body>
+</html>

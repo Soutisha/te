@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070a10">
+<title>AutoNexus Motors — Operations (Kolkata)</title>
+<style>
+:root{color-scheme:dark;--bg:#070a10;--panel:#0d121b;--panel2:#101825;--line:#1d2938;--text:#f2f5f8;--muted:#8794a5;--blue:#2678f5;--blue:#2678f5;--red:#ff6677;--cyan:#52d5e5;--amber:#ffbd66;--mono:"Cascadia Code",Consolas,monospace;--display:"Space Grotesk","Arial",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 82% 0%,#142b4b55,transparent 35%),linear-gradient(180deg,#0a0e16 0,#070a10 40%)}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.topbar{height:68px;position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:22px;padding:0 clamp(16px,4vw,56px);background:#080b11eF;border-bottom:1px solid #ffffff0d;backdrop-filter:blur(16px)}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap;font:700 14px var(--display);letter-spacing:.08em}.brand-mark{display:grid;place-items:center;width:30px;height:30px;background:var(--blue);color:#ffffff;font:800 13px var(--mono);clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)}
+.brand em{font-style:normal;color:var(--blue)}.nav{display:flex;gap:4px;align-items:center;overflow:auto;scrollbar-width:none;flex:1}.nav::-webkit-scrollbar{display:none}.nav a{white-space:nowrap;color:var(--muted);font-size:12px;padding:8px 10px;border-radius:6px;transition:.2s}.nav a:hover,.nav a.active{color:var(--blue);background:#2678f510}
+.top-actions{display:flex;align-items:center;gap:10px}.live-link,.button{border:1px solid var(--line);border-radius:6px;background:#111a26;color:var(--text);padding:9px 13px;font-size:12px;transition:.2s}.live-link{border-color:#2678f540;background:#2678f512;color:var(--blue);white-space:nowrap}.button:hover,.live-link:hover{transform:translateY(-1px);border-color:var(--blue)}.button.primary{background:var(--blue);border-color:var(--blue);color:#ffffff;font-weight:700}.button.blue{background:#1558c9;border-color:#2874e8}.button.danger{color:var(--red);border-color:#ff667744}
+.wrap{width:min(1420px,100%);margin:0 auto;padding:30px clamp(16px,4vw,56px) 80px}
+.hero{min-height:290px;position:relative;overflow:hidden;padding:clamp(28px,5vw,62px);border:1px solid #29405e;border-radius:14px;background:linear-gradient(115deg,#101d2e 0%,#0d1420 53%,#111b27 100%);box-shadow:0 24px 80px #0005}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#8dbaff08 1px,transparent 1px),linear-gradient(90deg,#8dbaff08 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(90deg,#000,transparent 80%)}
+.hero:after{content:"";position:absolute;width:370px;height:370px;right:4%;top:-120px;border:1px solid #2385ff45;border-radius:50%;box-shadow:0 0 0 28px #2385ff0a,0 0 0 64px #2385ff08,0 0 90px #2385ff18}
+.hero-content{position:relative;z-index:1;max-width:760px}.eyebrow{display:flex;align-items:center;gap:9px;color:var(--blue);font:11px var(--mono);letter-spacing:.14em;text-transform:uppercase}.pulse{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--blue);animation:pulse 1.8s infinite}@keyframes pulse{50%{opacity:.35;box-shadow:0 0 2px var(--blue)}}
+h1,h2,h3,p{margin-top:0}.hero h1{font:700 clamp(38px,6.6vw,82px)/.94 var(--display);letter-spacing:-.055em;margin:24px 0 16px}.hero h1 span{color:var(--blue)}.hero-copy{max-width:580px;color:#aab6c6;margin-bottom:24px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.data-note{display:inline-flex;align-items:center;gap:7px;margin-top:24px;padding:6px 9px;border:1px solid #ffbd6644;border-radius:4px;color:#ffcf91;background:#ffbd660c;font:10px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.section{padding-top:54px;scroll-margin-top:86px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:0 0 18px}.section-kicker{color:var(--blue);font:10px var(--mono);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}.section-head h2{font:600 clamp(23px,3vw,34px)/1.1 var(--display);letter-spacing:-.03em;margin:0}.section-head p{color:var(--muted);font-size:12px;margin:6px 0 0}.section-index{color:#455365;font:12px var(--mono)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}.stat,.card{border:1px solid var(--line);border-radius:9px;background:linear-gradient(150deg,#101722,#0b1018);box-shadow:0 8px 28px #0002}.stat{padding:16px 18px;position:relative;overflow:hidden}.stat:after{content:"";position:absolute;right:-18px;top:-25px;width:80px;height:80px;border-radius:50%;border:1px solid #2385ff20;box-shadow:0 0 0 12px #2385ff08}.stat-label{color:var(--muted);font-size:11px}.stat-value{font:600 30px/1.2 var(--display);margin-top:8px;letter-spacing:-.03em}.stat-foot{color:#718096;font-size:10px;margin-top:5px}.stat-value.lime{color:var(--blue)}.stat-value.blue{color:#6eaeff}.stat-value.amber{color:var(--amber)}
+.grid{display:grid;gap:14px}.two{grid-template-columns:minmax(0,1.3fr) minmax(300px,.8fr)}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{padding:19px;min-width:0}.card-head{display:flex;justify-content:space-between;align-items:start;gap:10px;margin-bottom:16px}.card-title{font:600 15px var(--display);margin:0}.card-sub{font-size:11px;color:var(--muted);margin:4px 0 0}.pill{border:1px solid var(--line);border-radius:99px;color:var(--muted);padding:4px 8px;font:9px var(--mono);white-space:nowrap}.pill.green{color:var(--blue);border-color:#2678f53a;background:#2678f50a}.pill.warn{color:var(--amber);border-color:#ffbd6638;background:#ffbd6609}
+.chart{width:100%;display:block;overflow:visible}.chart text{font-family:Inter,system-ui,sans-serif}.chart .axis{fill:#8997a9;font-size:10px}.chart .value{fill:#dce4ef;font:10px var(--mono)}.chart .gridline{stroke:#263244;stroke-width:1}.chart .bar-bg{fill:#182334}.chart .line-path{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:10px;margin-top:9px}.legend i{width:8px;height:8px;display:inline-block;border-radius:2px;margin-right:5px}
+.chart-wrap{min-height:200px}.empty{color:var(--muted);font-size:12px;padding:22px 4px}.table{width:100%;border-collapse:collapse;font-size:11px}.table th{text-align:left;color:#738196;text-transform:uppercase;font:9px var(--mono);letter-spacing:.1em;padding:8px;border-bottom:1px solid var(--line)}.table td{padding:10px 8px;border-bottom:1px solid #ffffff08;color:#cbd4df}.table tr:last-child td{border-bottom:0}.table .strong{color:var(--text);font-weight:600}.meter{height:5px;border-radius:8px;background:#1a2533;overflow:hidden;min-width:62px}.meter b{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue));border-radius:inherit}
+.route-box{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 14px;background:#080e17;border:1px solid var(--line);border-radius:7px;margin-top:12px}.route-box strong{color:var(--blue);font:11px var(--mono)}.route-box span{color:var(--muted);font-size:11px}
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.control{padding:8px 10px;border:1px solid var(--line);border-radius:5px;background:#080e17;color:var(--text);font-size:11px}.control:focus,textarea:focus{outline:1px solid var(--blue);border-color:var(--blue)}
+.bay-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:8px}.bay{padding:10px;border:1px solid var(--line);border-radius:6px;background:#0a1119}.bay-name{font:10px var(--mono);color:var(--muted)}.bay-count{font:600 20px var(--display);margin:4px 0}.bay small{font-size:10px;color:var(--muted)}
+.supplier{display:grid;grid-template-columns:120px 1fr 44px;gap:10px;align-items:center;margin:15px 0}.supplier-name{font-size:11px}.supplier-track{height:8px;border-radius:10px;background:#1a2533;overflow:hidden}.supplier-track i{height:100%;display:block;background:linear-gradient(90deg,var(--blue),var(--blue));border-radius:inherit}.supplier-score{font:10px var(--mono);text-align:right;color:var(--blue)}
+.alert{border:1px solid #ffbd6638;border-left:3px solid var(--amber);background:#ffbd660b;padding:12px 14px;border-radius:5px;color:#e4c99e;font-size:11px;line-height:1.55}
+.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.tool-card{border:1px solid var(--line);border-radius:9px;background:#0d131c;padding:18px}.tool-card h3{font:600 14px var(--display);margin-bottom:5px}.tool-card p{color:var(--muted);font-size:11px;margin-bottom:13px}.tool-card textarea{width:100%;min-height:76px;resize:vertical;padding:10px;border:1px solid var(--line);border-radius:5px;background:#080e17;color:var(--text);font-size:12px}.tool-card .toolbar{margin-top:9px}.result{margin-top:10px;padding:10px;border-radius:5px;background:#080e17;border:1px solid var(--line);color:#c6d1df;font:10px/1.6 var(--mono);white-space:pre-wrap;overflow:auto;max-height:210px}.result:empty{display:none}.result.error{color:var(--red);border-color:#ff667744}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}.result-item{padding:7px 8px;border:1px solid #ffffff0c;border-radius:4px;background:#0d141e}.result-item span{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.06em}.result-item strong{display:block;margin-top:3px;color:var(--text);font:11px/1.45 var(--mono);overflow-wrap:anywhere}.result details{margin-top:8px;border-top:1px solid var(--line);padding-top:7px}.result summary{color:#8e9db0;cursor:pointer;font:9px var(--mono);text-transform:uppercase;letter-spacing:.08em}.result pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#aab8ca;font:9px/1.5 var(--mono);max-height:150px;overflow:auto}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);display:inline-block;margin-right:7px;box-shadow:0 0 8px #2678f588}.statusline{display:flex;align-items:center;color:var(--muted);font-size:10px}.footer{border-top:1px solid var(--line);margin-top:56px;padding-top:20px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#68778a;font-size:10px}.footer b{color:#a7b3c2;font-weight:500}
+#toast{position:fixed;right:18px;bottom:18px;z-index:40;max-width:min(420px,90vw);padding:12px 16px;border:1px solid #38506b;border-radius:7px;background:#101b28;color:var(--text);box-shadow:0 10px 40px #0008;font-size:12px;opacity:0;transform:translateY(12px);pointer-events:none;transition:.22s}#toast.show{opacity:1;transform:none}
+@media(max-width:980px){.topbar{gap:10px}.brand{font-size:12px}.nav a{padding:8px 7px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.three{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.topbar{height:auto;min-height:60px;flex-wrap:wrap;padding:10px 14px;gap:7px}.brand{flex:1}.top-actions{margin-left:auto}.nav{order:3;flex-basis:100%;padding-bottom:2px}.wrap{padding-top:18px}.hero{min-height:310px;padding:28px 21px}.hero:after{right:-190px;top:-60px}.section{padding-top:38px}.stats{gap:8px}.stat{padding:13px}.stat-value{font-size:25px}.three,.tool-grid{grid-template-columns:1fr}.section-head{align-items:start}.section-index{display:none}.supplier{grid-template-columns:95px 1fr 40px}.card{padding:15px}}
+</style>
+<link rel="stylesheet" href="app/dashboard-premium.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#overview" aria-label="AUTONEXUS home"><span class="brand-mark">AN</span><span>AUTO<em>NEXUS</em> <span style="color:#8190a3">AI 2.0</span></span></a>
+  <nav class="nav" aria-label="Dashboard sections">
+    <a href="#overview">Overview</a><a href="#integrations">Data</a><a href="#inventory">Inventory</a><a href="#routing">Network</a><a href="#workshop">Workshop</a><a href="#supply">Suppliers</a><a href="#intelligence">Intelligence</a><a href="#security">Security</a><a href="#tools">Operations</a>
+  </nav>
+  <div class="top-actions"><a class="live-link" href="/world">▶ LIVE WORLD</a></div>
+</header>
+<main class="wrap">
+  <section class="hero" id="overview">
+    <div class="hero-content">
+      <div class="eyebrow"><span class="pulse"></span> AUTONOMOUS OPERATIONS / CONTROL ROOM</div>
+      <h1>OPERATIONS,<br><span>IN MOTION.</span></h1>
+      <p class="hero-copy">A unified view of inventory, service capacity, supply risk and recovery. Each signal below is calculated from the project’s generated operational dataset.</p>
+      <div class="hero-actions"><a class="button primary" href="#inventory">EXPLORE OPERATIONS ↓</a><a class="button" href="/world">ENTER THE LIVE WORLD ↗</a></div>
+      <div class="data-note" id="data-note">● Loading data source… <span id="data-refreshed"></span></div>
+    </div>
+  </section>
+  <div class="stats" aria-label="Operational summary">
+    <article class="stat"><div class="stat-label">NETWORK INVENTORY</div><div class="stat-value blue" id="kpi-stock">—</div><div class="stat-foot" id="kpi-stock-foot">Loading generated inventory</div></article>
+    <article class="stat"><div class="stat-label">OPEN REPAIR ORDERS</div><div class="stat-value" id="kpi-repairs">—</div><div class="stat-foot" id="kpi-repairs-foot">Across dealerships</div></article>
+    <article class="stat"><div class="stat-label">LOW-STOCK POSITIONS</div><div class="stat-value amber" id="kpi-low">—</div><div class="stat-foot">SKU / site pairs below 10 units</div></article>
+    <article class="stat"><div class="stat-label">ACTIVE WORLD PHASE</div><div class="stat-value lime" style="font-size:20px" id="kpi-world">CONNECTING</div><div class="stat-foot" id="kpi-world-foot">Simulation state</div></article>
+  </div>
+
+  
+  <section class="section" id="situation" style="margin-top:8px">
+    <div class="section-head"><div><div class="section-kicker">TODAY · KOLKATA CENTRAL</div>
+    <h2>What needs attention right now.</h2>
+    <p>Three questions every manager should answer in under 10 seconds.</p></div></div>
+    <div class="grid two">
+      <article class="card" style="border-color:#ff667744">
+        <div class="card-head"><div>
+          <h3 class="card-title" style="color:var(--red)">Brake pads are out at Kolkata Central</h3>
+          <p class="card-sub"><b>What is happening?</b> Stock of BrakePad (P000) is <b>0</b> at Kolkata Central. Two open repair orders need 2 sets.</p>
+          <p class="card-sub"><b>Why the business cares:</b> Customer jobs are blocked; workshop time is idle; risk of lost service revenue.</p>
+          <p class="card-sub"><b>What to do:</b> Request transfer from <b>Salt Lake (18 on hand)</b> or <b>Dum Dum hub (40)</b>. Manager approval required.</p>
+        </div><span class="pill" style="border-color:#ff6677;color:var(--red)">ACTION NEEDED</span></div>
+        <div class="toolbar" style="margin-top:12px;gap:8px;display:flex;flex-wrap:wrap">
+          <a class="button primary" href="/world">Open Living World → run recovery</a>
+          <a class="button" href="/docs#/core/start_api_v1_workflows_shortage_post">API: start shortage workflow</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head"><div>
+          <h3 class="card-title">Branch stock snapshot (BrakePad)</h3>
+          <p class="card-sub">Live from sample dataset · internal IDs in parentheses</p>
+        </div><span class="pill">STOCK</span></div>
+        <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:13px">
+          <tr style="color:var(--muted);text-align:left"><th style="padding:6px 0">Branch</th><th>On hand</th><th>Role</th></tr>
+          <tr><td style="padding:6px 0">Kolkata Central (DealerA)</td><td style="color:var(--red);font-weight:700">0</td><td>Needs stock</td></tr>
+          <tr><td style="padding:6px 0">Salt Lake (DealerB)</td><td style="color:var(--blue);font-weight:700">18</td><td>Preferred donor</td></tr>
+          <tr><td style="padding:6px 0">Howrah (DealerC)</td><td>4</td><td>Limited</td></tr>
+          <tr><td style="padding:6px 0">Dum Dum Hub (WH1)</td><td style="color:var(--blue);font-weight:700">40</td><td>Regional buffer</td></tr>
+        </table>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="integrations">
+    <div class="section-head"><div><div class="section-kicker">00 / DATA PROVENANCE</div><h2>What is real, what is simulated.</h2><p>Operational data arrives through a read-only telemetry feed. Today that feed is a built-in <b>synthetic</b> generator (from the sample CSVs), not a real dealership, and the Living World streams a local simulation.</p></div></div>
+    <div class="alert"><b>Why synthetic:</b> a real feed needs a dealership’s authorised read-only endpoint, credentials and response schema, which this project does not have. So the adapter reads the synthetic feed and labels it SIMULATED. To use a real one, set <code>TELEMETRY_URL</code> (and <code>TELEMETRY_TOKEN</code>); it is shown LIVE only after a successful, schema-validated call, and a failed call shows ERROR instead of falling back to synthetic data.</div>
+    <div class="toolbar" style="margin-top:12px"><button class="button" id="fetch-feed">FETCH TELEMETRY FEED NOW</button></div><div id="feed-result" class="result"></div>
+    <div id="integration-table" style="margin-top:12px"></div>
+  </section>
+  <section class="section" id="inventory">
+    <div class="section-head"><div><div class="section-kicker">01 / STOCK MANAGEMENT</div><h2>How much stock do we have, and where?</h2><p>On-hand units and assortment health across the five dealers and two hubs.</p></div><div class="section-index">01 — 07</div></div>
+    <div class="grid two">
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Units by site</h3><p class="card-sub">Column chart · units on hand per site, all parts combined (lime = dealership, blue = warehouse)</p></div><span class="pill">CSV · INVENTORY</span></div><div id="stock-chart" class="chart-wrap"></div></article>
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Highest-volume parts</h3><p class="card-sub">Dot-and-stem chart · the eight parts with the most units network-wide</p></div><span class="pill">120 PARTS</span></div><div id="parts-chart" class="chart-wrap"></div></article>
+    </div>
+  </section>
+
+  <section class="section" id="routing">
+    <div class="section-head"><div><div class="section-kicker">02 / NETWORK & RECOVERY</div><h2>Routes with a reason.</h2><p>Graph topology and transfer route from the same A* recovery planner used by the app.</p></div><div class="section-index">02 — 07</div></div>
+    <div class="grid two">
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Supply network</h3><p class="card-sub">Selected route highlighted across the fictional road graph</p></div><span class="pill green" id="route-status">A* ROUTE</span></div><div id="network-chart" class="chart-wrap"></div><div class="route-box" id="route-summary"></div><div class="toolbar" style="margin-top:12px"><label for="dealer-select" class="card-sub">Shortage destination</label><select class="control" id="dealer-select" aria-label="Shortage destination"></select><label for="route-part" class="card-sub">Part</label><select class="control" id="route-part" aria-label="Part"></select><label for="route-qty" class="card-sub">Required units</label><input class="control" id="route-qty" type="number" min="1" step="1" placeholder="Repair demand" aria-label="Required units; blank uses repair demand"><button class="button blue" id="plan-route">RECALCULATE ROUTE</button><button class="button" id="close-road">TEST ROAD CLOSURE</button></div><div id="route-result" class="result"></div></article>
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Delivery pulse</h3><p class="card-sub">Delivery records grouped by current synthetic status</p></div><span class="pill">60 DELIVERIES</span></div><div id="delivery-chart" class="chart-wrap"></div><div id="delivery-legend" class="legend"></div><div class="alert" style="margin-top:18px">Transfer recommendations are plans only. Inventory changes only after an authorized execution or the Living World approval flow.</div></article>
+    </div>
+  </section>
+
+  <section class="section" id="workshop">
+    <div class="section-head"><div><div class="section-kicker">03 / SERVICE OPERATIONS</div><h2>Workshop capacity.</h2><p>Repair-order distribution, priorities and service-bay availability from generated CSV records.</p></div><div class="section-index">03 — 07</div></div>
+    <div class="grid two">
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Repair orders by dealer</h3><p class="card-sub">Count of generated repair orders, grouped by dealership</p></div><span class="pill" id="repair-total">— ORDERS</span></div><div id="repair-chart" class="chart-wrap"></div><div id="repair-legend" class="legend"></div></article>
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Bay utilization</h3><p class="card-sub">Available bays / total bays at each dealership</p></div><button class="button" id="simulate-bays">SIMULATE SCHEDULING</button></div><div id="bay-grid" class="bay-list"></div><div id="bays-result" class="result"></div></article>
+    </div>
+  </section>
+
+  <section class="section" id="supply">
+    <div class="section-head"><div><div class="section-kicker">04 / PROCUREMENT & COMPLIANCE</div><h2>Trust before purchase.</h2><p>Supplier reliability, lead times and purchase-order exposure from the seeded sourcing data.</p></div><div class="section-index">04 — 07</div></div>
+    <div class="grid two">
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Supplier reliability</h3><p class="card-sub">Reliability score, order volume and restricted-source flag</p></div><span class="pill">SUPPLIER MASTER</span></div><div id="supplier-list"></div></article>
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Purchase exposure</h3><p class="card-sub">Committed PO value by supplier</p></div><span class="pill">PURCHASE ORDERS</span></div><div id="po-chart" class="chart-wrap"></div><div class="toolbar"><button class="button" data-whatif="6">RUN COMPLIANCE SCENARIO</button><button class="button" data-whatif="3">COMPARE SOURCES</button></div><div id="supply-result" class="result"></div></article>
+    </div>
+  </section>
+
+  <section class="section" id="intelligence">
+    <div class="section-head"><div><div class="section-kicker">05 / PREDICT & LEARN</div><h2>Signals become foresight.</h2><p>Demand and stockout trends across the synthetic 120-day history, plus the real FedAvg training run.</p></div><div class="section-index">05 — 07</div></div>
+    <div class="grid two">
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Demand history</h3><p class="card-sub">Six-day buckets · mean demand and observed stockout label rate</p></div><span class="pill">5 DEALERS · 120 DAYS</span></div><div id="demand-chart" class="chart-wrap"></div><div class="legend"><span><i style="background:#2385ff"></i>Mean daily demand</span><span><i style="background:#2678f5"></i>Stockout label rate</span></div></article>
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Federated model convergence</h3><p class="card-sub">Evaluation F1 by communication round · generated dealership histories</p></div><span class="pill" id="fed-status">LOADING MODEL RUN</span></div><div id="fed-chart" class="chart-wrap"><div class="empty">Loading FedAvg evaluation…</div></div><div id="fed-summary" class="legend"></div></article>
+    </div>
+    <div class="grid three" style="margin-top:14px">
+      <article class="stat"><div class="stat-label">FEDERATED F1</div><div class="stat-value lime" id="fed-f1">—</div><div class="stat-foot">Modelled test-set score</div></article>
+      <article class="stat"><div class="stat-label">CENTRALISED F1</div><div class="stat-value blue" id="central-f1">—</div><div class="stat-foot">Same generated test records</div></article>
+      <article class="stat"><div class="stat-label">WEIGHT COMMUNICATION</div><div class="stat-value" id="fed-bytes">—</div><div class="stat-foot">FedAvg estimate · no privacy guarantee</div></article>
+    </div>
+    <div class="alert" style="margin-top:14px"><b>Why these numbers are synthetic:</b> the models are trained on generated demand history, so every score (F1, savings, resolution time) measures how well they learn the generator, not real dealerships. <b>Why federated learning is not private:</b> it runs FedAvg in a single process. Each dealer’s weights are sent as plain numbers and averaged, with no secure aggregation (so the server could read each dealer’s update) and no differential privacy (no noise limiting what a weight leaks), and the shared normalisation reveals aggregate statistics. It shows that raw rows need not move, not that the updates are confidential.</div>
+    <div class="toolbar" style="margin-top:13px"><button class="button" id="run-ml">RUN PREDICTIVE EVALUATION</button><button class="button" id="run-eval">VIEW BASELINE COMPARISON</button></div><div id="ml-result" class="result"></div>
+  </section>
+
+  <section class="section" id="security">
+    <div class="section-head"><div><div class="section-kicker">06 / SECURITY & GOVERNANCE</div><h2>Every action accountable.</h2><p>Generated security events and the in-memory containment simulation, with audit-chain status.</p></div><div class="section-index">06 — 07</div></div>
+    <div class="grid two">
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Security event mix</h3><p class="card-sub">Generated event types · flagged events are synthetic scenario labels</p></div><span class="pill warn" id="security-flagged">— FLAGGED</span></div><div id="security-chart" class="chart-wrap"></div><div class="toolbar"><button class="button danger" id="simulate-security">SIMULATE CYBERSHIELD</button><button class="button" id="verify-audit">VERIFY AUDIT CHAIN</button></div><div id="security-result" class="result"></div></article>
+      <article class="card"><div class="card-head"><div><h3 class="card-title">Decision controls</h3><p class="card-sub">Authenticated controls stay in this page; no module needs a separate screen.</p></div><span class="pill">RBAC · AUDIT</span></div>
+        <p>Only the configured owner can approve or reject Living World transfers. Credentials are checked on the server and are never stored in this page.</p><div class="toolbar"><input class="control" id="username" type="email" placeholder="Owner email" autocomplete="username"><input class="control" id="password" type="password" placeholder="Owner password" autocomplete="current-password"><button class="button blue" id="login">SIGN IN</button><button class="button" id="logout">SIGN OUT</button></div><div id="auth-state" class="statusline" style="margin:12px 0"><span class="status-dot"></span>Not signed in</div><div class="toolbar"><button class="button primary" id="approve-transfer">APPROVE PENDING TRANSFER</button><button class="button" id="read-audit">READ AUDIT LOG</button></div><div id="auth-result" class="result"></div>
+        <div class="alert" style="margin-top:16px">Approval uses the API’s existing role checks. For the interactive vehicle journey and road-closure rerouting, use the backend-driven Living World.</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="tools">
+    <div class="section-head"><div><div class="section-kicker">07 / OPERATIONS WORKBENCH</div><h2>Tools, in context.</h2><p>Copilot, voice, documents, agent orchestration, what-if analysis and demo controls—all inline.</p></div><div class="section-index">07 — 07</div></div>
+    <div class="tool-grid">
+      <article class="tool-card"><h3>AI Operations Centre</h3><p>Run the agent workflow against the seeded shortage scenario.</p><div class="toolbar"><button class="button primary" id="run-agents">RUN AGENT TEAM</button><button class="button" id="run-agents-blocked">RUN WITH ROAD CLOSURE</button></div><div class="result" id="agents-result"></div></article>
+      <article class="tool-card"><h3>AI Copilot</h3><p>Ask the local rule-routed operations assistant.</p><textarea id="copilot-input" placeholder="Ask about shortage risk, transfers, inventory, or security…"></textarea><div class="toolbar"><button class="button blue" id="ask-copilot">ASK COPILOT</button></div><div class="result" id="copilot-result"></div></article>
+      <article class="tool-card"><h3>Smart Document Extraction Agent</h3><p>Select the local vehicle, then upload its registration certificate and insurance policy together. Checks run offline against the West Bengal field and format profile plus the local inventory VIN. Results are for human review.</p><div class="toolbar"><input class="control" id="document-vehicle-id" value="VH001" aria-label="Local vehicle ID"><input class="control" type="file" id="document-files" accept="image/*,.pdf,application/pdf" multiple><button class="button primary" id="validate-documents">VALIDATE LOCAL DOCS</button></div><div class="result" id="validation-result" aria-live="polite"></div><details style="margin-top:12px"><summary>Extract fields from pasted text or one file</summary><textarea id="document-input" style="margin-top:10px" placeholder="Paste registration certificate, insurance, invoice, or purchase order text"></textarea><div class="toolbar"><button class="button" id="extract-document">EXTRACT TEXT</button><input class="control" type="file" id="ocr-file" accept="image/*,.pdf,application/pdf"><button class="button" id="run-ocr">EXTRACT ONE PDF / IMAGE</button></div><div class="result" id="docs-result"></div></details></article>
+      <article class="tool-card"><h3>Voice First Lot Walk Assistant</h3><p>Record or type a lot-walk note. Microphone transcription uses a local multilingual Whisper model with automatic language detection; audio is sent only to this local backend. Review the detected vehicle, location, condition, and status, then sign in and confirm to write the observation to local inventory.</p><textarea id="voice-input">VH001 parked at row B-12, exterior clean, no damage, ready for sale.</textarea><div class="toolbar"><button class="button" id="speak-voice">START MULTILINGUAL MICROPHONE</button><button class="button" id="stop-voice" disabled>STOP & TRANSCRIBE</button><span class="card-sub" id="voice-status" aria-live="polite"></span><button class="button" id="preview-lot-walk">PREVIEW LOT WALK</button></div><div class="result" id="lot-walk-preview" aria-live="polite"></div><div class="toolbar"><button class="button blue" id="save-lot-walk" disabled>CONFIRM & SAVE UPDATE</button></div><div class="result" id="lot-walk-save" aria-live="polite"></div></article>
+      <article class="tool-card"><h3>What-if & demo controls</h3><p>Run the existing scenarios and 120-second guided simulation.</p><div class="toolbar"><button class="button" data-whatif="1">DEMAND</button><button class="button" data-whatif="2">STOCK</button><button class="button" data-whatif="4">ROUTE</button><button class="button" data-whatif="6">COMPLIANCE</button><button class="button" data-whatif="7">RISK</button></div><div class="toolbar" style="margin-top:10px"><button class="button primary" data-demo="restart">RESTART DEMO</button><button class="button" data-demo="next">NEXT STEP</button><button class="button" data-demo="all">RUN ALL</button><button class="button" data-demo="pause">PAUSE</button><button class="button" data-demo="resume">RESUME</button></div><div class="result" id="scenario-result"></div></article>
+    </div>
+  </section>
+  <footer class="footer"><span><b>AUTONEXUS AI 2.0</b> · Unified operations cockpit</span><span>Generated fictional dataset · offline-first · <a href="/world" style="color:var(--blue)">Open Living World ↗</a></span></footer>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+const $=id=>document.getElementById(id), COLORS=["#2385ff","#2678f5","#54d7d0","#ffbd66","#a78bfa","#fb7185","#718096"];
+let DATA=null,TOKEN=sessionStorage.getItem("autonexusOwnerToken"),toastTimer=null,loading=false;
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function notify(message){const t=$("toast");t.textContent=message;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),3600)}
+async function request(path,options={}){const headers={...(options.headers||{})};if(TOKEN)headers.Authorization="Bearer "+TOKEN;const r=await fetch(path,{...options,headers});const text=await r.text();let result;try{result=text?JSON.parse(text):{}}catch{result={detail:text}}if(!r.ok)throw new Error(`${r.status}: ${result.detail||result.error||r.statusText}`);return result}
+function readable(value){
+  if(value===null)return"None";
+  if(typeof value==="boolean")return value?"Yes":"No";
+  if(Array.isArray(value))return value.map(item=>typeof item==="object"&&item!==null?readable(item):String(item)).join(" · ")||"None";
+  if(typeof value==="object")return Object.entries(value).map(([key,item])=>`${key.replace(/_/g," ")}: ${readable(item)}`).join(" · ")||"None";
+  return String(value);
+}
+function result(id,data,error=false){
+  const el=$(id);if(!el)return;el.classList.toggle("error",error);el.replaceChildren();
+  if(typeof data==="string"){el.textContent=data;return}
+  const grid=document.createElement("div");grid.className="result-grid";
+  for(const [key,value] of Object.entries(data||{})){
+    const item=document.createElement("div");item.className="result-item";
+    const label=document.createElement("span");label.textContent=key.replace(/_/g," ");
+    const text=document.createElement("strong");text.textContent=readable(value);
+    item.append(label,text);grid.appendChild(item)
+  }
+  if(grid.childElementCount)el.appendChild(grid);
+  if(!el.childElementCount)el.textContent="Action completed."
+}
+function showError(id,e){result(id,e.message,true);notify(e.message)}
+function bars(items,labelKey,valueKey,color="#2385ff",suffix="",ax){
+  if(!items?.length)return'<div class="empty">No records available.</div>';
+  const W=640,left=118,right=54,row=32,top=8,H=items.length*row+top+10+(ax?24:0),max=Math.max(1,...items.map(x=>Number(x[valueKey])||0));
+  const nodes=items.map((item,i)=>{const y=top+i*row+5,v=Number(item[valueKey])||0,w=(W-left-right)*v/max;return`<text class="axis" x="${left-10}" y="${y+12}" text-anchor="end">${esc(item[labelKey])}</text><rect class="bar-bg" x="${left}" y="${y}" width="${W-left-right}" height="13" rx="3"/><rect x="${left}" y="${y}" width="${w}" height="13" rx="3" fill="${COLORS[i%COLORS.length]}"/><text class="value" x="${Math.min(W-right+5,left+w+7)}" y="${y+11}">${esc(v)}${suffix}</text>`}).join("");
+  const titles=ax?`<text class="axis" x="${(left+W-right)/2}" y="${H-6}" text-anchor="middle" font-size="11">${esc(ax.x)}</text><text class="axis" x="${left-10}" y="${H-6}" text-anchor="end" font-size="11" opacity=".8">${esc(ax.y)}</text>`:"";
+  return`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Horizontal bar chart">${nodes}${titles}</svg>`
+}
+const niceMax=v=>{const p=Math.pow(10,Math.floor(Math.log10(Math.max(1,v)))),n=v/p;return(n<=1?1:n<=2?2:n<=5?5:10)*p};
+/* vertical COLUMN chart: category on x, quantity on y, both axes titled */
+function columns(items,labelKey,valueKey,o={}){
+  if(!items?.length)return'<div class="empty">No records available.</div>';
+  const W=640,H=300,L=64,R=16,T=18,B=64,max=niceMax(Math.max(...items.map(x=>Number(x[valueKey])||0))),bw=(W-L-R)/items.length,y=v=>T+(1-v/max)*(H-T-B);
+  let g="";for(let i=0;i<=4;i++){const v=max*i/4,yy=y(v);g+=`<line class="gridline" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"/><text class="axis" x="${L-8}" y="${yy+3}" text-anchor="end">${Math.round(v).toLocaleString()}</text>`}
+  items.forEach((it,i)=>{const v=Number(it[valueKey])||0,x=L+i*bw+bw*.18,w=bw*.64,hub=String(it[labelKey]).startsWith("WH"),c=o.colorFor?o.colorFor(it):"#2385ff";
+    g+=`<rect x="${x}" y="${y(v)}" width="${w}" height="${H-B-y(v)}" fill="${c}" rx="2"><title>${esc(it[labelKey])}: ${v.toLocaleString()} ${esc(o.unit||"")}</title></rect><text class="value" x="${x+w/2}" y="${y(v)-5}" text-anchor="middle">${v.toLocaleString()}</text><text class="axis" x="${x+w/2}" y="${H-B+16}" text-anchor="middle">${esc(it[labelKey])}</text>`});
+  g+=`<text class="axis" x="${(L+W-R)/2}" y="${H-12}" text-anchor="middle" font-size="11">${esc(o.xTitle||"")}</text><text class="axis" transform="translate(14 ${(T+H-B)/2}) rotate(-90)" text-anchor="middle" font-size="11">${esc(o.yTitle||"")}</text>`;
+  return`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"Column chart")}">${g}</svg>`
+}
+/* horizontal LOLLIPOP (dot-and-stem) chart: ranked categories on y, quantity on x with tick scale and axis titles */
+function lollipop(items,labelKey,valueKey,o={}){
+  if(!items?.length)return'<div class="empty">No records available.</div>';
+  const W=640,L=210,R=64,T=10,B=54,row=30,H=T+B+items.length*row,max=niceMax(Math.max(...items.map(x=>Number(x[valueKey])||0))),x=v=>L+v/max*(W-L-R),c=o.color||"#54d7d0";
+  let g="";for(let i=0;i<=4;i++){const v=max*i/4,xx=x(v);g+=`<line class="gridline" x1="${xx}" y1="${T}" x2="${xx}" y2="${H-B}"/><text class="axis" font-size="12" x="${xx}" y="${H-B+16}" text-anchor="middle">${Math.round(v).toLocaleString()}</text>`}
+  items.forEach((it,i)=>{const v=Number(it[valueKey])||0,yy=T+i*row+row/2;g+=`<text class="axis" font-size="13" x="${L-12}" y="${yy+3}" text-anchor="end">${esc(o.labelFn?o.labelFn(it):it[labelKey])}</text><line x1="${L}" y1="${yy}" x2="${x(v)}" y2="${yy}" stroke="${c}" stroke-width="2" opacity=".55"/><circle cx="${x(v)}" cy="${yy}" r="6" fill="${c}"><title>${esc(it[labelKey])}: ${v.toLocaleString()} ${esc(o.unit||"")}</title></circle><text class="value" font-size="13" x="${x(v)+11}" y="${yy+3}">${v.toLocaleString()}</text>`});
+  g+=`<text class="axis" x="${(L+W-R)/2}" y="${H-10}" text-anchor="middle" font-size="13">${esc(o.xTitle||"")}</text><text class="axis" transform="translate(12 ${(T+H-B)/2}) rotate(-90)" text-anchor="middle" font-size="13">${esc(o.yTitle||"")}</text>`;
+  return`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"Lollipop chart")}">${g}</svg>`
+}
+function donut(items){
+  if(!items?.length)return'<div class="empty">No records available.</div>';
+  const total=items.reduce((a,x)=>a+(Number(x.value)||0),0)||1,circ=2*Math.PI*62;
+  let offset=0;const circles=items.map((x,i)=>{const len=(Number(x.value)||0)/total*circ,el=`<circle cx="92" cy="92" r="62" fill="none" stroke="${COLORS[i%COLORS.length]}" stroke-width="18" stroke-dasharray="${len} ${circ-len}" stroke-dashoffset="${-offset}"/>`;offset+=len;return el}).join("");
+  const legend=items.map((x,i)=>`<span><i style="background:${COLORS[i%COLORS.length]}"></i>${esc(x.name)} <b style="color:#dce4ef">${esc(x.value)}</b></span>`).join("");
+  return{svg:`<svg class="chart" viewBox="0 0 184 184" role="img" aria-label="Donut chart"><g transform="rotate(-90 92 92)">${circles}</g><text x="92" y="88" text-anchor="middle" fill="#f2f5f8" font-size="24" font-weight="600">${total}</text><text x="92" y="106" text-anchor="middle" fill="#8794a5" font-size="9">RECORDS</text></svg>`,legend}
+}
+function lineChart(series,opts={}){
+  const W=640,H=opts.xTitle?246:220,L=opts.yTitle?52:38,R=14,T=16,B=opts.xTitle?52:28,all=series.flatMap(s=>s.values),max=opts.max??Math.max(1,...all),min=opts.min??0;
+  const y=v=>T+(max-v)/(max-min||1)*(H-T-B),x=i=>L+i*(W-L-R)/Math.max(1,(Math.max(...series.map(s=>s.values.length))-1));
+  let svg="";for(let i=0;i<4;i++){const yy=T+i*(H-T-B)/3,val=max-i*(max-min)/3;svg+=`<line class="gridline" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"/><text class="axis" x="${L-7}" y="${yy+3}" text-anchor="end">${opts.percent?Math.round(val*100)+"%":val.toFixed(opts.decimals??1)}</text>`}
+  series.forEach(s=>{const points=s.values.map((v,i)=>`${x(i)},${y(v)}`).join(" ");svg+=`<polyline class="line-path" stroke="${s.color}" points="${points}"/>`;if(s.values.length<24)s.values.forEach((v,i)=>svg+=`<circle cx="${x(i)}" cy="${y(v)}" r="2.4" fill="${s.color}"/>`)});
+  const n=Math.max(...series.map(s=>s.values.length));for(let i=0;i<5;i++){const idx=Math.round(i*(n-1)/4),v=opts.labels?.[idx]??(idx*6);svg+=`<text class="axis" x="${x(idx)}" y="${opts.xTitle?H-B+16:H-6}" text-anchor="middle">${esc(v)}</text>`}
+  if(opts.xTitle)svg+=`<text class="axis" x="${(L+W-R)/2}" y="${H-6}" text-anchor="middle" font-size="11">${esc(opts.xTitle)}</text>`;if(opts.yTitle)svg+=`<text class="axis" transform="translate(11 ${(T+H-B)/2}) rotate(-90)" text-anchor="middle" font-size="11">${esc(opts.yTitle)}</text>`;
+  return`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.aria||"Line chart")}">${svg}</svg>`
+}
+function renderNetwork(net){
+  const nodes=net.nodes||[],minX=Math.min(...nodes.map(n=>n.x)),maxX=Math.max(...nodes.map(n=>n.x)),minY=Math.min(...nodes.map(n=>n.y)),maxY=Math.max(...nodes.map(n=>n.y)),W=640,H=300;
+  const xy={};nodes.forEach(n=>xy[n.id]=[58+(n.x-minX)/(maxX-minX||1)*(W-116),36+(1-(n.y-minY)/(maxY-minY||1))*(H-82)]);
+  const route=net.route||[],blocked=net.blocked||[],links=(net.edges||[]).map(e=>{const a=xy[e.from],b=xy[e.to],on=route.some((n,i)=>i<route.length-1&&((n===e.from&&route[i+1]===e.to)||(n===e.to&&route[i+1]===e.from))),closed=blocked.some(edge=>edge.length===2&&((edge[0]===e.from&&edge[1]===e.to)||(edge[1]===e.from&&edge[0]===e.to)));return`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${closed?"#ff6677":on?"#2678f5":"#314153"}" stroke-width="${closed?3:on?3:1.3}" ${on&&!closed?'stroke-dasharray="7 5" class="route-line"':""}/><text x="${(a[0]+b[0])/2}" y="${(a[1]+b[1])/2-5}" text-anchor="middle" fill="${closed?"#ff9aaa":"#68778a"}" font-size="8">${Number(e.cost).toFixed(0)}</text>`}).join("");
+  const dots=nodes.map(n=>{const p=xy[n.id],isRoute=route.includes(n.id),hub=n.id.startsWith("WH");return`<circle cx="${p[0]}" cy="${p[1]}" r="${isRoute?7:5}" fill="${hub?"#2385ff":isRoute?"#2678f5":"#8794a5"}" stroke="#071019" stroke-width="2"/><text x="${p[0]}" y="${p[1]+19}" text-anchor="middle" fill="${isRoute?"#efffc0":"#aab6c6"}" font-size="10" font-family="Consolas,monospace">${esc(n.id)}</text>`}).join("");
+  $("network-chart").innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Dealer and warehouse route network">${links}${dots}</svg>`;
+  const summary=$("route-summary");if(route.length){const closure=blocked.length?`Road closed: ${blocked.map(edge=>edge.map(esc).join(" → ")).join(", ")} · `:"";summary.innerHTML=`<strong>${route.map(esc).join(" → ")}</strong><span>${closure}Estimated route cost ${Number(net.route_cost).toFixed(1)} · ${Number(net.shortage)||0} units to recover</span>`}else if(blocked.length){summary.innerHTML=`<span>Road closed: ${blocked.map(edge=>edge.map(esc).join(" → ")).join(", ")} · no alternate route is available.</span>`}else summary.innerHTML='<span>No feasible transfer route for this shortage.</span>';
+}
+function render(data){
+  DATA=data;
+  const dealerSelect=$("dealer-select"),partSelect=$("route-part");
+  const selectedDealer=dealerSelect.value,selectedPart=partSelect.value;
+  const destinations=data.bays.map(site=>site.site);
+  dealerSelect.replaceChildren(...destinations.map(site=>new Option(site,site)));
+  dealerSelect.value=destinations.includes(selectedDealer)?selectedDealer:(data.network.destination||destinations[0]||"");
+  const parts=data.inventory.parts||[];
+  partSelect.replaceChildren(...parts.map(part=>new Option(`${part.id} · ${part.name}`,part.id)));
+  partSelect.value=parts.some(part=>part.id===selectedPart)?selectedPart:(data.network.part||parts[0]?.id||"");
+  const provenance=data.label||"DATA SOURCE NOT IDENTIFIED";
+  $("data-note").firstChild.textContent=`● ${provenance} · `;
+  $("data-refreshed").textContent=data.source?.refreshed_at?`Updated ${new Date(data.source.refreshed_at).toLocaleString()}`:"";
+  $("kpi-stock").textContent=Number(data.inventory.total_units).toLocaleString();
+  $("kpi-stock-foot").textContent=`${data.inventory.sites.length} sites · ${data.inventory.low_stock_skus.toLocaleString()} low-stock positions`;
+  $("kpi-repairs").textContent=data.repairs.total.toLocaleString();
+  $("kpi-repairs-foot").textContent=`${Object.values(data.repairs.by_status).reduce((a,b)=>a+b,0).toLocaleString()} repair records in the current dataset`;
+  $("kpi-low").textContent=data.inventory.low_stock_skus.toLocaleString();
+  $("stock-chart").innerHTML=columns(data.inventory.sites,"site","units",{xTitle:"Site (DealerA–E = dealerships, WH = warehouse hubs)",yTitle:"Units on hand (all parts)",unit:"units",aria:"Column chart of units on hand by site",colorFor:i=>String(i.site).startsWith("WH")?"#2385ff":"#2678f5"});
+  $("parts-chart").innerHTML=lollipop(data.inventory.top_parts,"part","units",{xTitle:"Units on hand across the whole network",yTitle:"Part (ID · name)",unit:"units",aria:"Lollipop chart of the eight highest-volume parts",labelFn:i=>`${i.part} · ${i.name||""}`});
+  renderNetwork(data.network);
+  const d=donut(Object.entries(data.deliveries.by_status).map(([name,value])=>({name,value})));
+  $("delivery-chart").innerHTML=d.svg;$("delivery-legend").innerHTML=d.legend;
+  $("repair-total").textContent=`${data.repairs.total} ORDERS`;
+  $("repair-chart").innerHTML=bars(data.repairs.by_site,"site","count","#2385ff","",{x:"Repair orders (count)",y:"Dealership"});
+  $("repair-legend").innerHTML=Object.entries(data.repairs.by_status).map(([k,v],i)=>`<span><i style="background:${COLORS[i]}"></i>${esc(k)} ${v}</span>`).join("");
+  $("bay-grid").innerHTML=data.bays.map(b=>`<div class="bay"><div class="bay-name">${esc(b.site)}</div><div class="bay-count">${b.available}<span style="color:#64748b;font-size:13px"> / ${b.total}</span></div><small>${b.available===b.total?"All bays available":`${b.total-b.available} occupied`}</small><div class="meter" style="margin-top:9px"><b style="width:${b.total?b.available/b.total*100:0}%"></b></div></div>`).join("");
+  $("supplier-list").innerHTML=data.suppliers.map(s=>`<div class="supplier"><div class="supplier-name">${esc(s.name)}<div class="card-sub">${esc(s.id)} · ${s.lead_time_days}d${s.restricted?' · <span style="color:var(--red)">RESTRICTED</span>':""}</div></div><div class="supplier-track"><i style="width:${s.reliability*100}%"></i></div><div class="supplier-score">${Math.round(s.reliability*100)}%</div></div>`).join("");
+  $("po-chart").innerHTML=bars(data.suppliers,"name","order_value","#2678f5","",{x:"Committed purchase-order value ($)",y:"Supplier"});$("po-chart").querySelectorAll(".value").forEach((el,i)=>el.textContent="$"+Number(data.suppliers[i]?.order_value||0).toLocaleString());
+  const buckets=data.demand.buckets;
+  const days=buckets.map(x=>`D${x.day}`);
+  $("demand-chart").innerHTML=`<div class="card-sub" style="margin:3px 0">AVERAGE DAILY DEMAND</div>${lineChart([{values:buckets.map(x=>x.avg_demand),color:"#2385ff"}],{max:Math.max(1,...buckets.map(x=>x.avg_demand))*1.12,min:0,labels:days,xTitle:"Day of the 120-day history (six-day buckets)",yTitle:"Average demand (units/day)",aria:"Average daily demand by six-day bucket"})}<div class="card-sub" style="margin:12px 0 3px">SHARE OF RECORDS LABELLED STOCKOUT</div>${lineChart([{values:buckets.map(x=>x.stockout_rate),color:"#2678f5"}],{max:1,min:0,percent:true,labels:days,xTitle:"Day of the 120-day history (six-day buckets)",yTitle:"Records labelled stockout (%)",aria:"Stockout label rate by six-day bucket"})}`;
+  $("security-flagged").textContent=`${data.security.flagged} FLAGGED / ${data.security.total} EVENTS`;
+  $("security-chart").innerHTML=bars(Object.entries(data.security.by_action).map(([action,count])=>({action,count})),"action","count","#ffbd66","",{x:"Events (count)",y:"Event type"});
+  $("kpi-world-foot").textContent=`${data.demand.days} days of demand history · ${data.demand.observations.toLocaleString()} records`;
+}
+async function loadIntegrations(){
+  try{const d=await request("/integrations/status"),col={LIVE:"#2678f5",CONFIGURED:"#54d7d0",LOCAL:"#2385ff",SIMULATED:"#ffbd66",OFFLINE:"#8794a5",NEEDS_CREDENTIALS:"#ff6b6b"};
+  $("integration-table").innerHTML=`<table class="table"><thead><tr><th>Integration</th><th>Status</th><th>Why / what it needs</th></tr></thead><tbody>${d.integrations.map(i=>`<tr><td>${esc(i.name)}</td><td><b style="color:${col[i.status]||"#fff"}">${esc(i.status.replace("_"," "))}</b></td><td>${esc(i.why)}${i.needs?` <span style="color:#8794a5">Needs: ${esc(i.needs)}</span>`:""}</td></tr>`).join("")}</tbody></table>`}catch(e){$("integration-table").textContent="Could not load integration status: "+e.message}
+}
+async function load(){
+  if(loading)return;
+  loading=true;
+  try{const data=await request("/dashboard/data");render(data);notify("Operational dataset loaded")}catch(e){$("stock-chart").innerHTML=`<div class="empty">Could not load dashboard data: ${esc(e.message)}</div>`;notify(e.message)}
+  try{const state=await request("/world/state");$("kpi-world").textContent=String(state.phase||"idle").replaceAll("_"," ").toUpperCase();$("kpi-world").style.fontSize="20px";$("kpi-world-foot").textContent=`${state.destination} · ${state.part} ${state.part_name} · ${state.shortage} units short`}catch(e){$("kpi-world").textContent="OFFLINE"}
+  try{const fed=await request("/world/federated");if(fed.federated){$("fed-status").textContent=`${fed.rounds} ROUNDS · ${fed.clients.length} DEALERS`;$("fed-status").classList.add("green");$("fed-chart").innerHTML=lineChart([{values:fed.fed_f1_curve,color:"#2678f5"},{values:fed.central_f1_curve,color:"#2385ff"}],{min:0,max:1,decimals:2,labels:fed.fed_f1_curve.map((_,i)=>"R"+(i+1)),xTitle:"Communication round",yTitle:"F1 score (0 – 1, higher is better)",aria:"Federated and centralised model F1 by round"});$("fed-summary").innerHTML='<span><i style="background:#2678f5"></i>Federated</span><span><i style="background:#2385ff"></i>Centralised</span>'; $("fed-f1").textContent=Number(fed.federated.f1).toFixed(3);$("central-f1").textContent=Number(fed.centralised.f1).toFixed(3);$("fed-bytes").textContent=(fed.communication_bytes_federated/1024).toFixed(1)+" KB"}else throw new Error("Federated result unavailable")}catch(e){$("fed-status").textContent="MODEL RUN UNAVAILABLE";$("fed-chart").innerHTML=`<div class="empty">Could not load model run: ${esc(e.message)}</div>`}
+  loading=false;loadIntegrations();
+}
+async function action(path,options,target){try{const data=await request(path,options);result(target,data);notify("Action completed");return data}catch(e){showError(target,e);return null}}
+async function runWithFeedback(buttonIds,activeId,path,options,target,runningLabel,message){
+  const buttons=buttonIds.map($).filter(Boolean);if(!buttons.length)return action(path,options,target);
+  if(buttons.some(button=>button.disabled))return null;
+  const active=$(activeId),original=active.textContent,output=$(target);
+  buttons.forEach(button=>{button.disabled=true;button.setAttribute("aria-busy","true")});
+  active.textContent=runningLabel;
+  if(output){output.classList.remove("error");output.textContent=message}
+  try{const data=await request(path,options);result(target,data);notify("Action completed");return data}
+  catch(e){showError(target,e);return null}
+  finally{buttons.forEach(button=>{button.disabled=false;button.removeAttribute("aria-busy")});active.textContent=original}
+}
+function routePlanUrl(blockedEdge){const params=new URLSearchParams({dealer:$("dealer-select").value,part:$("route-part").value});const quantity=$("route-qty").value;if(quantity)params.set("required_qty",quantity);if(blockedEdge)params.set("blocked",blockedEdge.join("-"));return`/recovery/plan?${params}`}
+function showRoutePlan(data,blockedEdge){if(data?.best){renderNetwork({...DATA.network,route:data.best.route,route_cost:data.best.cost,shortage:data.shortage.shortage,blocked:blockedEdge?[blockedEdge]:[]})}else if(data){renderNetwork({...DATA.network,route:[],route_cost:null,shortage:data.shortage?.shortage||0,blocked:blockedEdge?[blockedEdge]:[]});if(!blockedEdge)$("route-summary").innerHTML=`<span>${esc(data.status||"No route")} · ${esc(data.shortage?.shortage??0)} units short</span>`}}
+$("plan-route").onclick=async()=>{if(!DATA)return;const data=await action(routePlanUrl(),{method:"POST"},"route-result");showRoutePlan(data)};
+$("close-road").onclick=async()=>{if(!DATA)return;try{const baseline=await request(routePlanUrl(),{method:"POST"});if(!baseline.best||baseline.best.route.length<2){result("route-result",{status:baseline.status||"no_route",message:"No planned road segment is available to close.",shortage:baseline.shortage?.shortage??0});showRoutePlan(baseline);return}const edge=baseline.best.route.slice(0,2),rerouted=await request(routePlanUrl(edge),{method:"POST"});result("route-result",{road_closed:edge.join(" → "),rerouted:Boolean(rerouted.best),route:rerouted.best?.route||[],status:rerouted.status||"no_route",shortage:rerouted.shortage?.shortage??0});showRoutePlan(rerouted,edge);notify("Road closure test completed")}catch(error){showError("route-result",error)}};
+$("simulate-bays").onclick=()=>action("/simulate/bays?bays=4",{},"bays-result");
+$("simulate-security").onclick=()=>action("/security/simulate",{},"security-result");
+$("verify-audit").onclick=()=>action("/audit/verify",{},"security-result");
+$("login").onclick=async()=>{try{const d=await request("/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:$("username").value,password:$("password").value})});TOKEN=d.token;sessionStorage.setItem("autonexusOwnerToken",TOKEN);$("auth-state").innerHTML=`<span class="status-dot"></span>Signed in · ${esc(d.role)}`;$("password").value="";result("auth-result",{role:d.role,authenticated:true});notify("Signed in")}catch(e){showError("auth-result",e)}};
+$("logout").onclick=()=>{TOKEN=null;sessionStorage.removeItem("autonexusOwnerToken");$("auth-state").textContent="Not signed in";notify("Signed out")};
+$("approve-transfer").onclick=()=>action("/secure/approve",{method:"POST"},"auth-result");
+$("read-audit").onclick=()=>action("/secure/audit",{},"auth-result");
+$("run-agents").onclick=()=>runWithFeedback(["run-agents","run-agents-blocked"],"run-agents","/agents/run",{method:"POST"},"agents-result","RUNNING AGENT TEAM...","Planning locally: checking stock, supplier policy, route, and approval requirements.");
+$("run-agents-blocked").onclick=()=>runWithFeedback(["run-agents","run-agents-blocked"],"run-agents-blocked","/agents/run?blocked=DealerA-WH1",{method:"POST"},"agents-result","REPLANNING...","Replanning locally with the selected road closure.");
+$("ask-copilot").onclick=()=>action("/copilot?q="+encodeURIComponent($("copilot-input").value),{},"copilot-result");
+$("extract-document").onclick=()=>submitLocalText("extract-document","document-input","/documents/extract","Paste document text first.");
+$("run-ocr").onclick=async()=>{const file=$("ocr-file").files[0];if(!file){result("docs-result","Choose a PDF or image first.",true);return}const isPdf=file.type==="application/pdf"||file.name.toLowerCase().endsWith(".pdf"),path=isPdf?"/documents/extract-file":"/ocr",button=$("run-ocr"),label=button.textContent,form=new FormData();form.append("file",file);button.disabled=true;button.textContent="PROCESSING...";try{await action(path,{method:"POST",body:form},"docs-result")}finally{button.disabled=false;button.textContent=label}};
+$("validate-documents").onclick=async()=>{const files=$("document-files").files;if(!files.length){$("validation-result").textContent="Select the RC and insurance files to validate.";return}const form=new FormData();form.append("vehicle_id",$("document-vehicle-id").value.trim());for(const f of files)form.append("files",f);const b=$("validate-documents");b.disabled=true;b.textContent="CHECKING LOCALLY...";try{const d=await request("/documents/validate",{method:"POST",body:form});const checks=d.checks||[];$("validation-result").innerHTML=`<b>${esc(String(d.status||"result").replaceAll("_"," ").toUpperCase())}</b><ul>${checks.map(c=>`<li style="color:${c.passed?"#54d7d0":c.severity==="warning"?"#ffbd66":"#fb7185"}">${c.passed?"PASS":"CHECK"}: ${esc(c.check)} - ${esc(c.detail)}</li>`).join("")}</ul><p>${esc(d.note||"")}</p>`;notify("Local document checks complete")}catch(e){$("validation-result").textContent=e.message}finally{b.disabled=false;b.textContent="VALIDATE LOCAL DOCS"}};
+let lotWalkPreview=null,audioContext=null,audioStream=null,audioProcessor=null,audioChunks=[];
+$("preview-lot-walk").onclick=async()=>{const text=$("voice-input").value.trim();lotWalkPreview=null;$("save-lot-walk").disabled=true;if(!text){$("lot-walk-preview").textContent="Record or type a lot-walk note first.";return}try{lotWalkPreview=await request("/vehicles/lot-walk/preview",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text})});const p=lotWalkPreview;$("lot-walk-preview").innerHTML=`<b>${p.valid?"REVIEW BEFORE SAVING":"NEEDS MORE DETAIL"}</b><ul><li>Vehicle: ${esc(p.vehicle_id||"unknown")} | ${esc(p.model||"")} | VIN ${esc(p.vin||"")}</li><li>Location: ${esc(p.location||"not detected")}</li><li>Condition: ${esc(p.condition)}</li><li>Status: ${esc(p.status)}</li></ul>${p.issues?.length?`<p>${esc(p.issues.join(" "))}</p>`:""}<p>${esc(p.message)}</p>`;$("save-lot-walk").disabled=!p.valid;$("lot-walk-save").textContent=""}catch(e){$("lot-walk-preview").textContent=e.message}};
+$("save-lot-walk").onclick=async()=>{if(!lotWalkPreview?.valid)return;if(!TOKEN){$("lot-walk-save").textContent="Sign in as the local owner before saving this update.";return}if($("voice-input").value.trim()!==lotWalkPreview.transcript){$("lot-walk-save").textContent="The note changed. Preview it again before saving.";$("save-lot-walk").disabled=true;return}const b=$("save-lot-walk");b.disabled=true;try{const d=await request("/vehicles/lot-walk/apply",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:lotWalkPreview.transcript})});$("lot-walk-save").textContent=`${d.message} Vehicle ${d.vehicle_id} | ${d.location} | ${d.status}.`;lotWalkPreview=null;notify("Lot-walk update saved locally")}catch(e){$("lot-walk-save").textContent=e.message;b.disabled=false}};
+function encodeWav(chunks,sampleRate){const size=chunks.reduce((n,c)=>n+c.length,0),buffer=new ArrayBuffer(44+size*2),v=new DataView(buffer);function str(o,s){for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))}str(0,"RIFF");v.setUint32(4,36+size*2,true);str(8,"WAVE");str(12,"fmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,sampleRate,true);v.setUint32(28,sampleRate*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);str(36,"data");v.setUint32(40,size*2,true);let off=44;for(const chunk of chunks)for(const sample of chunk){const x=Math.max(-1,Math.min(1,sample));v.setInt16(off,x<0?x*32768:x*32767,true);off+=2}return new Blob([buffer],{type:"audio/wav"})}
+$("speak-voice").onclick=async()=>{try{if(!navigator.mediaDevices?.getUserMedia)throw new Error("Microphone capture requires HTTPS or localhost and browser permission.");audioStream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true}});audioContext=new AudioContext();const source=audioContext.createMediaStreamSource(audioStream);audioProcessor=audioContext.createScriptProcessor(4096,1,1);const mute=audioContext.createGain();mute.gain.value=0;audioChunks=[];audioProcessor.onaudioprocess=e=>audioChunks.push(new Float32Array(e.inputBuffer.getChannelData(0)));source.connect(audioProcessor);audioProcessor.connect(mute);mute.connect(audioContext.destination);$("speak-voice").disabled=true;$("stop-voice").disabled=false;$("voice-status").textContent="Recording locally. Speak the vehicle ID, location, condition, and status."}catch(e){$("voice-status").textContent=e.message}};
+$("stop-voice").onclick=async()=>{const b=$("stop-voice");b.disabled=true;try{audioProcessor?.disconnect();audioStream?.getTracks().forEach(t=>t.stop());const wav=encodeWav(audioChunks,audioContext.sampleRate);await audioContext.close();const form=new FormData();form.append("file",wav,"lot-walk.wav");$("voice-status").textContent="Transcribing on the local server...";const d=await request("/voice/transcribe",{method:"POST",body:form});$("voice-input").value=d.transcript;$("voice-status").textContent=`Detected ${d.language} locally (${Math.round(d.language_probability*100)}% confidence); preview the note before saving.`;$("preview-lot-walk").click()}catch(e){$("voice-status").textContent=`Local transcription unavailable: ${e.message}`}finally{audioProcessor=null;audioStream=null;audioContext=null;audioChunks=[];$("speak-voice").disabled=false;b.disabled=true}};
+$("fetch-feed").onclick=async()=>{try{const f=await request("/telemetry/feed");const c=document.getElementById("feed-result");c.classList.toggle("error",f.status==="ERROR");c.textContent=f.status==="ERROR"?`ERROR · ${f.errors.join("; ")}`:`${f.status} · ${f.label} · ${f.summary.sites} sites · ${f.summary.total_units.toLocaleString()} units · ${f.summary.repair_orders} repair orders · ${f.summary.deliveries} deliveries · schema ${f.feed.schema_version} read-only · ${f.latency_ms} ms · fetched ${new Date(f.fetched_at).toLocaleTimeString()}`;loadIntegrations()}catch(e){showError("feed-result",e)}};
+$("run-ml").onclick=()=>runWithFeedback(["run-ml","run-eval"],"run-ml","/ml/evaluate",{},"ml-result","TRAINING MODELS...","Training and scoring the local synthetic demand dataset.");
+$("run-eval").onclick=()=>runWithFeedback(["run-ml","run-eval"],"run-eval","/evaluation",{},"ml-result","COMPARING...","Running the local baseline comparison over 30 synthetic scenarios.");
+document.querySelectorAll("[data-whatif]").forEach(b=>b.onclick=()=>action(`/whatif/${b.dataset.whatif}`,{},"scenario-result"));
+document.querySelectorAll("[data-demo]").forEach(b=>b.onclick=()=>action(`/demo/${b.dataset.demo}`,{method:"POST"},"scenario-result"));
+document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".nav a").forEach(n=>n.classList.remove("active"));a.classList.add("active")}));
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){document.querySelectorAll(".nav a").forEach(a=>a.classList.toggle("active",a.hash==="#"+e.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});document.querySelectorAll("main section[id]").forEach(s=>observer.observe(s));
+load();
+setInterval(load,30000);
+</script>
+<script src="app/motion.bundle.js" defer></script>
+</body>
+</html>

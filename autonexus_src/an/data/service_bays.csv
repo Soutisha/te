@@ -1,0 +1,13 @@
+bay_id,dealership_id,available,bay_type
+B00,DealerA,1,quick
+B01,DealerB,1,heavy
+B02,DealerC,1,quick
+B03,DealerA,1,general
+B04,DealerB,1,general
+B05,DealerC,1,heavy
+B06,DealerA,1,heavy
+B07,DealerB,1,general
+B08,DealerC,1,heavy
+B09,DealerA,1,general
+B10,DealerB,1,quick
+B11,DealerC,1,heavy

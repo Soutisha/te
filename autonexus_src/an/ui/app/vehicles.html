@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Cars waiting to sell — AutoNexus</title>
+  <link rel="stylesheet" href="/app/shell.css"/>
+</head>
+<body>
+<div class="app">
+  <div id="side"></div>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Cars waiting too long to sell</h1>
+        <p>Vehicle inventory is separate from spare parts. Aging stock ties up cash — promote, transfer, or discount.</p>
+      </div>
+    </div>
+    <div class="auth-bar" id="auth"></div>
+    <div class="card">
+      <h3>Sample vehicle stock (from dataset)</h3>
+      <p class="sub">Vehicles with 68 or more days in inventory are flagged. Data is from the configured dataset.</p>
+      <table>
+        <thead><tr><th>Vehicle</th><th>Branch</th><th>Model</th><th>Year</th><th>Days</th><th>Status</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="6" class="muted">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script src="/app/api.js"></script>
+<script>
+document.getElementById("side").innerHTML = sideNav(); navActive(); authBar();
+const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "'":"&#39;"}[c]));
+async function loadVehicles() {
+  const rows = document.getElementById("rows");
+  try {
+    const vehicles = await AN.vehicles();
+    rows.innerHTML = vehicles.map(v => `<tr><td class="mono">${esc(v.vehicle_id)}</td><td>${esc(v.dealer_name)}</td><td>${esc(v.model)}</td><td>${esc(v.year)}</td><td>${esc(v.days_in_inventory)}</td><td><span class="pill ${v.days_in_inventory >= 68 ? "warn" : "ok"}">${v.days_in_inventory >= 68 ? "Aging" : esc(v.status || "On track")}</span></td></tr>`).join("") || '<tr><td colspan="6" class="muted">No vehicle records found</td></tr>';
+  } catch (e) { rows.innerHTML = `<tr><td colspan="6" class="err">${esc(e.message)}</td></tr>`; }
+}
+window.onAuth = loadVehicles;
+loadVehicles();
+</script>
+</body>
+</html>

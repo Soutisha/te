@@ -1,0 +1,4 @@
+document_id,type,ref,status
+DOC000,invoice,INV-9,mismatch
+DOC001,purchase_order,PO-001,validated
+DOC002,contract,C-1,validated

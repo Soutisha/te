@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Stock management — AutoNexus</title>
+  <link rel="stylesheet" href="/app/shell.css"/>
+</head>
+<body>
+<div class="app">
+  <div id="side"></div>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Stock management</h1>
+        <p>Available stock = on hand − reserved. Pick a part to see every branch and hub.</p>
+      </div>
+    </div>
+    <div class="auth-bar" id="auth"></div>
+    <div class="card" style="margin-bottom:14px">
+      <label class="label">Part ID</label>
+      <div class="actions">
+        <input id="part" value="P000" style="background:var(--bg);border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:8px"/>
+        <button class="btn primary" id="load">Show stock</button>
+      </div>
+      <p class="sub" style="margin-top:8px">P000 = BrakePad · the part Kolkata Central is missing today</p>
+    </div>
+    <div class="card">
+      <h3>Position by site</h3>
+      <table>
+        <thead><tr><th>Site</th><th>On hand</th><th>Reserved</th><th>Available</th><th>Open need</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="5" class="muted">Sign in and load a part</td></tr></tbody>
+      </table>
+      <p class="err" id="err"></p>
+    </div>
+  </main>
+</div>
+<script src="/app/api.js"></script>
+<script>
+document.getElementById("side").innerHTML = sideNav(); navActive(); authBar();
+const names = {DealerA:"Kolkata Central",DealerB:"Salt Lake",DealerC:"Howrah",DealerD:"New Town",DealerE:"Rajarhat",WH1:"Dum Dum hub",WH2:"Howrah Yard"};
+async function load() {
+  document.getElementById("err").textContent = "";
+  try {
+    const part = document.getElementById("part").value.trim() || "P000";
+    const inv = await AN.inventory(part);
+    const twin = await AN.twin(part).catch(() => null);
+    const needMap = {};
+    (twin && twin.sites || []).forEach(s => needMap[s.id] = s.open_need);
+    const rows = inv.sites || inv.stock || inv || [];
+    const list = Array.isArray(rows) ? rows : Object.entries(rows).map(([id,v]) => Object.assign({site_id:id}, v));
+    document.getElementById("rows").innerHTML = list.map(s => {
+      const id = s.site_id || s.id || s.site;
+      const on = s.on_hand ?? s.qty ?? 0;
+      const res = s.reserved ?? 0;
+      const av = s.available ?? (on - res);
+      const need = needMap[id] ?? s.open_need ?? "—";
+      return `<tr><td>${names[id]||id}</td><td>${on}</td><td>${res}</td><td>${av}</td><td>${need}</td></tr>`;
+    }).join("") || '<tr><td colspan="5" class="muted">No rows</td></tr>';
+  } catch (e) {
+    document.getElementById("err").textContent = e.message;
+  }
+}
+document.getElementById("load").onclick = load;
+window.onAuth = load;
+</script>
+</body>
+</html>

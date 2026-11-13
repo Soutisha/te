@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Predict demand — AutoNexus</title>
+  <link rel="stylesheet" href="/app/shell.css"/>
+</head>
+<body>
+<div class="app">
+  <div id="side"></div>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Predict how many parts we need</h1>
+        <p>Classical forecast plus optional XGBoost evaluation on history. Metrics are honest holdout scores on sample data.</p>
+      </div>
+    </div>
+    <div class="auth-bar" id="auth"></div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="actions">
+        <input id="dealer" value="DealerA" style="background:var(--bg);border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:8px"/>
+        <input id="part" value="P000" style="background:var(--bg);border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:8px"/>
+        <button class="btn primary" id="go">Run forecast</button>
+        <button class="btn" id="xgb">Run XGBoost eval</button>
+      </div>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <h3>Classical model (SES / Croston)</h3>
+        <pre class="mono" id="classic" style="white-space:pre-wrap;color:var(--muted)">—</pre>
+      </div>
+      <div class="card">
+        <h3>XGBoost (MAE / RMSE on holdout)</h3>
+        <pre class="mono" id="xgbout" style="white-space:pre-wrap;color:var(--muted)">—</pre>
+      </div>
+    </div>
+    <p class="err" id="err"></p>
+  </main>
+</div>
+<script src="/app/api.js"></script>
+<script>
+document.getElementById("side").innerHTML = sideNav(); navActive(); authBar();
+function show(el, obj) {
+  document.getElementById(el).textContent = JSON.stringify(obj, null, 2);
+}
+document.getElementById("go").onclick = async () => {
+  document.getElementById("err").textContent = "";
+  try {
+    const r = await AN.forecast(document.getElementById("dealer").value.trim(), document.getElementById("part").value.trim());
+    show("classic", r);
+  } catch (e) { document.getElementById("err").textContent = e.message; }
+};
+document.getElementById("xgb").onclick = async () => {
+  document.getElementById("err").textContent = "";
+  try {
+    const r = await AN.forecastXgb(document.getElementById("dealer").value.trim(), document.getElementById("part").value.trim());
+    show("xgbout", r);
+  } catch (e) { document.getElementById("err").textContent = e.message; }
+};
+</script>
+</body>
+</html>

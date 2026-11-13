@@ -1,0 +1,19 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>AUTONEXUS Dijkstra vs A* Lab</title>
+<style>body{margin:0;background:#030407;color:#F5F7FA;font-family:Inter,system-ui,sans-serif}h1{font:700 20px 'Space Grotesk',sans-serif;padding:12px 16px;margin:0}h1 b{color:#2678f5}
+canvas{width:100%;max-width:760px;display:block;margin:auto;background:#080A0D;border:1px solid #202A39}button{background:#1558C9;color:#F5F7FA;border:0;padding:10px 12px;margin:3px;font:12px 'JetBrains Mono',monospace}
+#c{text-align:center;padding:8px}#s{font:12px 'JetBrains Mono',monospace;color:#929BAA;text-align:center;padding:8px}</style>
+<h1>THE FUTURE IS <b>AUTONOMOUS</b> — Algorithm Lab</h1><canvas id=cv width=760 height=520></canvas><div id=c></div><div id=s></div>
+<script>const D=__DATA__;let algo="astar",blocked=false,i=0,timer=null,N=D.nodes,cv=document.getElementById("cv"),x=cv.getContext("2d");
+const P=n=>[60+(N[n][0]+30)*7.2,300-(N[n][1])*5.2];
+function cur(){return(blocked?D.rerouted:D.normal)[algo]}
+function draw(){x.clearRect(0,0,760,520);const r=cur(),vis=r.visited.slice(0,i);
+for(const[a,b]of D.edges){const bl=blocked&&((a==D.blocked[0]&&b==D.blocked[1])||(a==D.blocked[1]&&b==D.blocked[0]));x.strokeStyle=bl?"#f33":"#1558C9";x.lineWidth=1;x.setLineDash(bl?[4,4]:[]);x.beginPath();x.moveTo(...P(a));x.lineTo(...P(b));x.stroke()}
+x.setLineDash([]);const done=i>=r.visited.length;if(done&&r.path){x.strokeStyle="#2678f5";x.lineWidth=3;x.beginPath();r.path.forEach((n,k)=>k?x.lineTo(...P(n)):x.moveTo(...P(n)));x.stroke()}
+for(const n in N){const[px,py]=P(n);x.fillStyle=vis.includes(n)?"#2678f5":"#2385FF";x.beginPath();x.arc(px,py,8,0,7);x.fill();x.fillStyle="#F5F7FA";x.font="11px monospace";x.fillText(n,px+10,py-8)}
+document.getElementById("s").textContent=`${algo.toUpperCase()} | explored ${vis.length}/${r.visited.length} | cost ${r.cost} | path ${r.path?r.path.join(" > "):"UNREACHABLE"} | road ${blocked?"BLOCKED":"open"}`}
+function step(){const m=cur().visited.length;if(i<m)i++;else pause();draw()}
+function start(){pause();timer=setInterval(step,600)}function pause(){clearInterval(timer)}function reset(){pause();i=0;draw()}
+function compare(){const a=D.normal.dijkstra.visited.length,b=D.normal.astar.visited.length;alert(`Dijkstra explored ${a} nodes, A* explored ${b}; costs ${D.normal.dijkstra.cost} vs ${D.normal.astar.cost}`)}
+function block(){blocked=!blocked;i=0;draw();start()}
+document.getElementById("c").innerHTML=[["START",start],["PAUSE",pause],["RESUME",start],["STEP",step],["RESET",reset],["COMPARE",compare],["TOGGLE ROAD BLOCKAGE",block],["SWITCH ALGO",()=>{algo=algo=="astar"?"dijkstra":"astar";reset()}]].map((b,k)=>`<button onclick="B[${k}]()">${b[0]}</button>`).join("");
+const B=[start,pause,start,step,reset,compare,block,()=>{algo=algo=="astar"?"dijkstra":"astar";reset()}];draw()</script>

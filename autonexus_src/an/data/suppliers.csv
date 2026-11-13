@@ -1,0 +1,9 @@
+supplier_id,name,reliability,lead_time_days,restricted,defect_rate
+V1,Bengal Auto Components,0.94,3,0,0.02
+V2,Eastern FastParts,0.71,2,1,0.08
+V3,Prime OEM Kolkata,0.89,5,0,0.015
+V4,Howrah Bearing Works,0.86,4,0,0.03
+V5,Salt Lake Spares Hub,0.91,2,0,0.025
+V6,National Brake Systems,0.96,6,0,0.01
+V7,QuickMove Logistics Parts,0.68,1,0,0.09
+V8,Metro Genuine Parts,0.92,4,0,0.02

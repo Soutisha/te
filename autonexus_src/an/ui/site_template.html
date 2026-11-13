@@ -1,0 +1,143 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>AUTONEXUS AI 2.0 — Intelligence in motion</title>
+<style>:root{--k:#030407;--b:#1558C9;--n:#2385FF;--l:#2678f5;--w:#F5F7FA;--m:#929BAA;--bd:#202A39}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+*{box-sizing:border-box}body{margin:0;background:var(--k);color:var(--w);font-family:Inter,system-ui,sans-serif}
+canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:0}
+header{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;font:12px 'JetBrains Mono',monospace;mix-blend-mode:normal}
+header b{font:700 15px 'Space Grotesk',sans-serif;letter-spacing:.08em}header b i{color:var(--l);font-style:normal}header a{color:#030407;background:var(--l);padding:9px 14px;text-decoration:none}
+#rail{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;gap:10px}#rail i{width:6px;height:6px;border-radius:50%;background:var(--bd);display:block;transition:.3s}#rail i.on{background:var(--l);transform:scale(1.8)}
+section{position:relative;z-index:2;height:260vh;pointer-events:none}.cap{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5vw 9vh}
+.cap h2{font:700 clamp(26px,5.5vw,64px)/1 'Space Grotesk',sans-serif;margin:0 0 8px;text-shadow:0 2px 24px #030407}.cap h2 b{color:var(--l)}.cap p{margin:0;max-width:520px;color:var(--m);font-size:14px;text-shadow:0 2px 12px #030407}
+.cap .tag{font:11px 'JetBrains Mono',monospace;color:var(--n);letter-spacing:.15em;margin-bottom:10px}
+.cta{pointer-events:auto}.cta a{display:inline-block;background:var(--l);color:#030407;padding:14px 22px;margin:14px 8px 0 0;text-decoration:none;font:13px 'JetBrains Mono',monospace}.cta a.s{background:var(--b);color:var(--w)}
+#st{position:fixed;left:5vw;top:62px;z-index:5;font:11px 'JetBrains Mono',monospace;color:var(--m);max-width:80vw}#data-status{position:fixed;left:5vw;bottom:14px;z-index:5;font:10px 'JetBrains Mono',monospace;color:var(--m);background:#030407cc;padding:6px 9px}
+@media(max-width:700px){#rail{display:none}}</style>
+<header><b>AUTO<i>NEXUS</i> AI 2.0</b><a href="/">OPEN APPLICATION</a></header><div id=rail></div><div id=st></div><div id=data-status>Loading dataset status…</div><canvas id=cv></canvas>
+<section><div class=cap><div class=tag>01 / PREDICT</div><h2>THE FUTURE OF<br>AUTOMOTIVE OPERATIONS<br>IS <b>AUTONOMOUS.</b></h2><p>Predict disruptions. Eliminate operational bottlenecks. Secure every decision. Scroll.</p></div></section>
+<section><div class=cap><div class=tag>02 / RECOVER</div><h2>A SHORTAGE.<br>A CLOSED ROAD.<br><b>A NEW ROUTE.</b></h2><p>Real A* routes from the backend planner. Source found, route chosen, road blocked, route recalculated.</p></div></section>
+<section><div class=cap><div class=tag>03 / ORCHESTRATE</div><h2>EVERY TECHNICIAN.<br>EVERY BAY. <b>MATCHED.</b></h2><p>Hungarian assignment of skilled technicians to repair orders on the service floor.</p></div></section>
+<section><div class=cap><div class=tag>04 / LEARN TOGETHER</div><h2>FIVE DEALERS.<br>ONE MODEL.<br><b>RAW DATA STAYS LOCAL.</b></h2><p id=fedp></p></div></section>
+<section><div class=cap><div class=tag>05 / SECURE</div><h2>A COMPROMISED<br>ACCOUNT. <b>HELD.</b></h2><p>Isolated simulation. Suspicious stock edit detected, transaction held, evidence hash-chained.</p></div></section>
+<section><div class=cap><div class=tag>06 / MEASURE</div><h2>BASELINE VS<br><b>AUTONEXUS.</b></h2><p id=evp></p></div></section>
+<section><div class=cap><div class=tag>07 / BEGIN</div><h2>PREDICT BEFORE DISRUPTION.<br><b>RECOVER AUTONOMOUSLY.</b></h2><div class=cta><a href="/">OPEN APPLICATION</a><a class=s href="index.html">DIJKSTRA LAB</a><a class=s href="/world">LIVING WORLD (3D)</a></div></div></section>
+<script>__LENIS__</script>
+<script>
+const D=__DATA__,cv=document.getElementById("cv"),x=cv.getContext("2d"),SEC=[...document.querySelectorAll("section")];
+async function refreshLiveData(){
+try{
+const response=await fetch("/dashboard/data");if(!response.ok)throw new Error(`Dataset refresh failed (${response.status})`);
+const data=await response.json(),route=data.network.route||[];let routeStatus="";
+if(route.length){
+D.first=route;D.destination=data.network.destination;D.part=data.network.part;D.need=data.network.shortage;D.cost1=data.network.route_cost;
+D.stock=Object.fromEntries(data.inventory.sites.map(site=>[site.site,(data.inventory.part_stock_by_site[site.site]||{})[D.part]||0]));
+D.nodes=Object.fromEntries(data.network.nodes.map(node=>[node.id,[node.x,node.y]]));D.edges=data.network.edges.map(edge=>[edge.from,edge.to]);
+const previous=D.closed,edges=route.slice(0,-1).map((node,index)=>[node,route[index+1]]);
+const preferred=edges.find(edge=>previous&&edge[0]===previous[0]&&edge[1]===previous[1]);
+const candidates=preferred?[preferred,...edges.filter(edge=>edge!==preferred)]:edges;
+let rerouted=false;
+for(const edge of candidates){
+try{
+const query=new URLSearchParams({dealer:D.destination,part:D.part,blocked:edge.join("-")});
+const reroute=await fetch("/recovery/plan?"+query,{method:"POST"});const plan=await reroute.json();
+if(reroute.ok&&plan.best&&plan.best.route.join("|")!==route.join("|")){
+D.closed=edge;D.second=plan.best.route;D.cost2=plan.best.cost;rerouted=true;break
+}
+}catch(error){routeStatus=" · alternate route check unavailable"}
+}
+if(!rerouted){D.closed=edges[edges.length-1]||[];D.second=route;D.cost2=D.cost1;routeStatus=" · no alternate route available"}
+NK=Object.keys(D.nodes);xs=NK.map(key=>D.nodes[key][0]);ys=NK.map(key=>D.nodes[key][1]);
+}
+D.provenance=data.label||"DATA SOURCE NOT IDENTIFIED";
+document.getElementById("data-status").textContent=`${D.provenance} · Updated ${new Date(data.source.refreshed_at).toLocaleString()}${routeStatus}`;
+}catch(error){document.getElementById("data-status").textContent=`Dataset refresh unavailable · ${error.message}`}
+}
+let W,H,dpr,mx=-999,my=-999,sec=0,p=0,T=0;
+const C={k:"#030407",b:"#1558C9",n:"#2385FF",l:"#2678f5",w:"#F5F7FA",m:"#929BAA",bd:"#202A39"};
+const rail=document.getElementById("rail");SEC.forEach(()=>rail.appendChild(document.createElement("i")));
+document.getElementById("fedp").textContent=`FedAvg over 5 non-IID dealership datasets. Federated F1 ${D.fed.federated.f1.toFixed(2)} vs centralised ${D.fed.centralised.f1.toFixed(2)} vs local-only ${D.fed.local_only_mean_f1.toFixed(2)} (synthetic). Only ${(D.fed.communication_bytes_federated/1024).toFixed(0)} KB of weights exchanged. Not a privacy guarantee.`;
+document.getElementById("evp").textContent=`Synthetic simulation, ${D.ev.runs} identical-input runs. Resolution ${D.ev.resolution_hours.baseline.mean}h → ${D.ev.resolution_hours.autonexus.mean}h (${D.ev.resolution_hours.improvement_pct}%). Baseline is modelled, not measured.`;
+function size(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);initHero()}
+const clamp=(a,b,c)=>Math.max(a,Math.min(c,b)),ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,seg=(p,a,b)=>clamp(0,(p-a)/(b-a),1);
+function scroll(){const y=scrollY;let s=0;SEC.forEach((e,i)=>{if(y+H*.5>=e.offsetTop)s=i});sec=s;const e=SEC[s];p=clamp(0,(y-e.offsetTop)/(e.offsetHeight-H),1);[...rail.children].forEach((r,i)=>r.className=i==s?"on":"")}
+let lenis=null;try{lenis=new Lenis({lerp:.08,smoothWheel:true});lenis.on("scroll",scroll)}catch(e){addEventListener("scroll",scroll)}
+onpointermove=e=>{mx=e.clientX;my=e.clientY};onresize=()=>{size();scroll()};
+/* ---------- HERO particles ---------- */
+let pts=[];const car=[[0,.5],[.1,.5],[.18,.32],[.38,.22],[.62,.22],[.8,.34],[.92,.45],[1,.5],[1,.62],[0,.62],[0,.5]];
+function initHero(){pts=[];const sx=Math.min(W*.86,980),ox=(W-sx)/2,sy=sx*.6,oy=H*.34;
+for(let i=0;i<car.length-1;i++)for(let t=0;t<1;t+=.01){const a=car[i],b=car[i+1];pts.push({tx:ox+(a[0]+(b[0]-a[0])*t)*sx,ty:oy+(a[1]+(b[1]-a[1])*t-.2)*sy})}
+for(const cx of[.22,.78])for(let a=0;a<6.28;a+=.12){pts.push({tx:ox+cx*sx+Math.cos(a)*sx*.065,ty:oy+(.62-.2)*sy+Math.sin(a)*sx*.065,wheel:cx,a})}
+for(let i=0;i<260;i++)pts.push({tx:Math.random()*W,ty:H*.82+Math.random()*3,road:1});
+pts.forEach(q=>{q.x=Math.random()*W;q.y=Math.random()*H;q.vx=0;q.vy=0})}
+function hero(){const form=ease(clamp(0,T/2.2,1)),scat=ease(seg(p,.2,.95));
+for(const q of pts){let tx=q.tx,ty=q.ty;if(q.wheel){const a=q.a+T*3,r=Math.hypot(q.tx-(q.tx-Math.cos(q.a)*0),0);}
+const k=.05*form*(1-scat);q.vx+=(tx-q.x)*k;q.vy+=(ty-q.y)*k;q.vx+=(Math.random()-.5)*(1-form+scat*3)*1.2;q.vy+=(Math.random()-.5)*(1-form+scat*3)*1.2-scat*.25;
+const dx=q.x-mx,dy=q.y-my,d=Math.hypot(dx,dy);if(d<90){q.vx+=dx/d*2.5;q.vy+=dy/d*2.5}q.vx*=.86;q.vy*=.86;q.x+=q.vx;q.y+=q.vy;
+const scan=((T*160)%(W*1.2))-W*.1;x.fillStyle=Math.abs(q.x-scan)<10?C.l:(q.road?C.bd:C.n);x.globalAlpha=1-scat*.7;x.fillRect(q.x,q.y,2,2)}x.globalAlpha=1;
+x.strokeStyle=C.l;x.globalAlpha=.5*(1-scat);const sx=((T*160)%(W*1.2))-W*.1;x.beginPath();x.moveTo(sx,H*.12);x.lineTo(sx,H*.8);x.stroke();x.globalAlpha=1}
+/* ---------- NETWORK ---------- */
+let NK=Object.keys(D.nodes),xs=NK.map(k=>D.nodes[k][0]),ys=NK.map(k=>D.nodes[k][1]);
+function NP(n){const mnx=Math.min(...xs),mxx=Math.max(...xs),mny=Math.min(...ys),mxy=Math.max(...ys);const pad=Math.min(W,H)*.12,top=H*.14;
+return[pad+(D.nodes[n][0]-mnx)/(mxx-mnx)*(W-2*pad),top+(1-(D.nodes[n][1]-mny)/(mxy-mny))*(H*.5)]}
+function along(route,t){const pts=route.map(NP),L=[];let tot=0;for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1][0]-pts[i][0],pts[i+1][1]-pts[i][1]);L.push(d);tot+=d}let r=t*tot;for(let i=0;i<L.length;i++){if(r<=L[i]||i==L.length-1){const u=clamp(0,r/L[i],1);return[pts[i][0]+(pts[i+1][0]-pts[i][0])*u,pts[i][1]+(pts[i+1][1]-pts[i][1])*u,i+u]}r-=L[i]}}
+function polyline(route,t,col,wd){const pts=route.map(NP);let tot=0,L=[];for(let i=0;i<pts.length-1;i++){const d=Math.hypot(pts[i+1][0]-pts[i][0],pts[i+1][1]-pts[i][1]);L.push(d);tot+=d}let r=t*tot;x.strokeStyle=col;x.lineWidth=wd;x.beginPath();x.moveTo(...pts[0]);for(let i=0;i<L.length;i++){if(r<=0)break;const u=Math.min(1,r/L[i]);x.lineTo(pts[i][0]+(pts[i+1][0]-pts[i][0])*u,pts[i][1]+(pts[i+1][1]-pts[i][1])*u);r-=L[i]}x.stroke()}
+function truck(px,py,col){x.fillStyle=col;x.fillRect(px-9,py-5,18,10);x.fillStyle=C.k;x.fillRect(px+4,py-4,4,5);x.fillStyle=C.w;x.beginPath();x.arc(px-5,py+5,2.5,0,7);x.arc(px+5,py+5,2.5,0,7);x.fill()}
+const traffic=D.edges.map((e,i)=>({e,o:i*.37}));
+function network(){const A=D.destination,r1=D.first,r2=D.second,closed=D.closed;
+for(const[a,b]of D.edges){x.strokeStyle=C.b;x.lineWidth=1.2;x.globalAlpha=.4+.6*seg(p,0,.1);x.beginPath();x.moveTo(...NP(a));x.lineTo(...NP(b));x.stroke()}x.globalAlpha=1;
+traffic.forEach(t=>{const u=(T*.08+t.o)%1,a=NP(t.e[0]),b=NP(t.e[1]),dir=(t.o*10|0)%2?u:1-u;x.fillStyle=C.n;x.fillRect(a[0]+(b[0]-a[0])*dir-2,a[1]+(b[1]-a[1])*dir-2,4,4)});
+const srch=seg(p,.12,.34);
+for(const n of NK){const[px,py]=NP(n),w=n.startsWith("WH"),has=D.stock[n]>=1;x.fillStyle=w?C.b:C.n;x.beginPath();x.arc(px,py,w?7:9,0,7);x.fill();x.fillStyle=C.w;x.font="11px 'JetBrains Mono',monospace";x.fillText(n,px+13,py-9);
+if(srch>0&&n!=A&&D.stock[n]>=D.need){const rr=((T*50)%60)*srch;x.strokeStyle=C.l;x.globalAlpha=1-rr/60;x.beginPath();x.arc(px,py,10+rr,0,7);x.stroke();x.globalAlpha=1;x.fillStyle=C.l;x.fillText("stock "+D.stock[n],px+13,py+6)}}
+const[ax,ay]=NP(A),pulse=(Math.sin(T*4)+1)/2;x.strokeStyle=C.w;x.lineWidth=2;x.beginPath();x.arc(ax,ay,14+pulse*10,0,7);x.stroke();x.fillStyle=C.w;x.fillText(p>.88?"stock "+D.stock[A]+" → "+(D.stock[A]+D.need)+" ✓":"SHORT by "+D.need+" ("+D.stock[A]+" in stock)",ax+16,ay+20);
+const t1=seg(p,.34,.58),blk=p>.58;polyline(r1,t1,blk?C.bd:C.l,blk?1.5:3);
+if(p>.34&&!blk){const v=along(r1,t1);truck(v[0],v[1],C.l)}
+if(blk&&p<.9){const a=NP(closed[0]),b=NP(closed[1]),mx_=(a[0]+b[0])/2,my_=(a[1]+b[1])/2;x.strokeStyle=C.w;x.lineWidth=3;x.beginPath();x.moveTo(mx_-9,my_-9);x.lineTo(mx_+9,my_+9);x.moveTo(mx_+9,my_-9);x.lineTo(mx_-9,my_+9);x.stroke();x.fillStyle=C.w;x.fillText("ROAD CLOSED — RECALCULATING",mx_-70,my_-18)}
+const t2=seg(p,.66,.9);if(p>.62){polyline(r2,t2,C.l,3);const v=along(r2,t2);truck(v[0],v[1],C.l)}
+x.fillStyle=C.m;x.font="11px 'JetBrains Mono',monospace";document.getElementById("st").textContent=`A* route ${D.first.join(" > ")} cost ${D.cost1} | after closure ${D.second.join(" > ")} cost ${D.cost2}`}
+/* ---------- SERVICE FLOOR + PEOPLE ---------- */
+let people=[];function mkPeople(){people=[];for(let i=0;i<46;i++)people.push({tech:i<18,x:Math.random()*W,y:H*.4+Math.random()*H*.15,tx:0,ty:0,ph:Math.random()*9,wait:0,sp:.5+Math.random()*.7})}
+function bayPos(i){const cols=5,gx=(W*.84)/cols,r=Math.floor(i/cols),c=i%cols;return[W*.08+gx*c+gx/2,H*.14+r*H*.14]}
+function pick(q){if(q.tech&&D.bays.length&&Math.random()<.6){const b=bayPos(Math.floor(Math.random()*D.bays.length));q.tx=b[0]+(Math.random()-.5)*50;q.ty=b[1]+30}else if(!q.tech&&Math.random()<.5){q.tx=W*.5+(Math.random()-.5)*W*.5;q.ty=H*.6}else{q.tx=W*.08+Math.random()*W*.84;q.ty=H*.36+Math.random()*H*.16}}
+function person(q,col){const sw=Math.sin(q.ph)*5;x.strokeStyle=col;x.fillStyle=col;x.lineWidth=2;x.beginPath();x.arc(q.x,q.y-14,3.2,0,7);x.fill();x.beginPath();x.moveTo(q.x,q.y-10);x.lineTo(q.x,q.y);x.moveTo(q.x,q.y);x.lineTo(q.x-sw,q.y+9);x.moveTo(q.x,q.y);x.lineTo(q.x+sw,q.y+9);x.moveTo(q.x,q.y-8);x.lineTo(q.x+sw*.6,q.y-3);x.moveTo(q.x,q.y-8);x.lineTo(q.x-sw*.6,q.y-3);x.stroke()}
+function floor(){if(!people.length){mkPeople();people.forEach(pick)}
+for(let i=0;i<D.bays.length;i++){const[bx,by]=bayPos(i);x.strokeStyle=C.b;x.lineWidth=1.2;x.strokeRect(bx-48,by-24,96,48);const occ=D.bays[i];x.fillStyle=occ?C.n:C.bd;x.globalAlpha=.5;x.fillRect(bx-34,by-12,68,24);x.globalAlpha=1;x.fillStyle=C.m;x.font="10px 'JetBrains Mono',monospace";x.fillText("BAY "+(i+1),bx-44,by-28)}
+x.strokeStyle=C.bd;x.strokeRect(W*.08,H*.55,W*.84,H*.09);x.fillStyle=C.m;x.fillText("CUSTOMER LOUNGE",W*.08+8,H*.55+14);
+const vis=Math.floor(10+seg(p,0,.6)*36);
+people.forEach((q,i)=>{if(i>=vis)return;const dx=q.tx-q.x,dy=q.ty-q.y,d=Math.hypot(dx,dy);if(d<4){q.wait--;if(q.wait<=0){pick(q);q.wait=60+Math.random()*180}}else{q.x+=dx/d*q.sp;q.y+=dy/d*q.sp;q.ph+=.22}person(q,q.tech?C.l:C.w)});
+const a=seg(p,.45,.9),pairs=D.assign;pairs.forEach((pr,k)=>{if(k/pairs.length>a)return;const q=people[pr.ti],b=bayPos(pr.bay);x.strokeStyle=C.l;x.setLineDash([4,4]);x.lineWidth=1;x.beginPath();x.moveTo(q.x,q.y-6);x.lineTo(b[0],b[1]);x.stroke();x.setLineDash([]);x.fillStyle=C.l;x.fillText(pr.ro+" ← "+pr.tech,b[0]-44,b[1]+38)});
+document.getElementById("st").textContent="Hungarian assignment: "+Object.entries(D.assignRaw).map(e=>e[0]+"→"+e[1]).join("  ")}
+/* ---------- FEDERATED ---------- */
+function federated(){const cx=W*.34,cy=H*.31,R=Math.min(W,H)*.2,cl=D.fed.clients,rounds=D.fed.rounds,rd=p*rounds;
+const pos=cl.map((c,i)=>{const a=-Math.PI/2+i*2*Math.PI/5;return[cx+Math.cos(a)*R,cy+Math.sin(a)*R]});
+pos.forEach((q,i)=>{x.strokeStyle=C.bd;x.beginPath();x.moveTo(cx,cy);x.lineTo(...q);x.stroke()});
+const ph=(T*.5)%1;pos.forEach((q,i)=>{const up=ph<.5,u=up?ph*2:(ph-.5)*2,px=up?q[0]+(cx-q[0])*u:cx+(q[0]-cx)*u,py=up?q[1]+(cy-q[1])*u:cy+(q[1]-cy)*u;x.fillStyle=up?C.n:C.l;x.fillRect(px-4,py-4,8,8);
+x.fillStyle=C.b;x.beginPath();x.arc(q[0],q[1],20,0,7);x.fill();x.strokeStyle=C.w;x.strokeRect(q[0]-8,q[1]-4,16,10);x.beginPath();x.arc(q[0],q[1]-4,5,Math.PI,0);x.stroke();x.fillStyle=C.w;x.font="11px 'JetBrains Mono',monospace";x.fillText(cl[i],q[0]-22,q[1]+36);x.fillStyle=C.m;x.fillText("F1(local) "+D.fed.local_only_f1[cl[i]].toFixed(2),q[0]-34,q[1]+50)});
+x.fillStyle=C.l;x.beginPath();x.arc(cx,cy,26+Math.sin(T*3)*3,0,7);x.fill();x.fillStyle=C.k;x.font="bold 11px 'JetBrains Mono',monospace";x.fillText("FedAvg",cx-21,cy+4);
+const gx=W*.62,gy=H*.16,gw=W*.32,gh=H*.4;x.strokeStyle=C.bd;x.strokeRect(gx,gy,gw,gh);x.fillStyle=C.m;x.fillText("F1 vs round (synthetic)",gx,gy-8);
+const all=[...D.fed.fed_f1_curve,...D.fed.central_f1_curve],lo=Math.min(...all,D.fed.local_only_mean_f1)-.02,hi=Math.max(...all)+.02,Y=v=>gy+gh-(v-lo)/(hi-lo)*gh;
+const line=(arr,col,dash)=>{x.strokeStyle=col;x.lineWidth=2.5;x.setLineDash(dash||[]);x.beginPath();arr.slice(0,Math.max(1,Math.floor(rd))).forEach((v,i)=>{const X=gx+i/(rounds-1)*gw;i?x.lineTo(X,Y(v)):x.moveTo(X,Y(v))});x.stroke();x.setLineDash([])};
+line(D.fed.fed_f1_curve,C.l);line(D.fed.central_f1_curve,C.n);x.strokeStyle=C.m;x.setLineDash([5,5]);x.lineWidth=1;x.beginPath();x.moveTo(gx,Y(D.fed.local_only_mean_f1));x.lineTo(gx+gw,Y(D.fed.local_only_mean_f1));x.stroke();x.setLineDash([]);
+x.fillStyle=C.l;x.fillText("federated "+D.fed.federated.f1.toFixed(3),gx,gy+gh+16);x.fillStyle=C.n;x.fillText("centralised "+D.fed.centralised.f1.toFixed(3),gx+gw*.38,gy+gh+16);x.fillStyle=C.m;x.fillText("local-only "+D.fed.local_only_mean_f1.toFixed(3),gx+gw*.78-20,gy+gh+16);
+document.getElementById("st").textContent="round "+Math.min(rounds,Math.floor(rd))+"/"+rounds}
+/* ---------- SECURITY ---------- */
+function security(){const cx=W*.62,cy=H*.4,R=Math.min(W,H)*.17,ax=W*.12,ay=H*.4;
+for(let k=0;k<3;k++){x.strokeStyle=k==0?C.l:C.b;x.globalAlpha=.9-k*.25;x.lineWidth=1.5;x.beginPath();for(let i=0;i<7;i++){const a=i*Math.PI/3+T*.1*(k+1)*(k%2?-1:1);x[i?"lineTo":"moveTo"](cx+Math.cos(a)*(R+k*26),cy+Math.sin(a)*(R+k*26))}x.stroke()}x.globalAlpha=1;
+x.fillStyle=C.n;x.fillRect(cx-30,cy-22,60,44);x.fillStyle=C.w;x.font="11px 'JetBrains Mono',monospace";x.fillText("INVENTORY",cx-30,cy+4);x.fillText("PROCUREMENT",cx-37,cy+38);
+const lock=p>.62;x.fillStyle=lock?C.bd:C.w;x.beginPath();x.arc(ax,ay,16,0,7);x.fill();x.fillStyle=lock?C.m:C.k;x.fillText(lock?"LOCKED":"sup_x",ax-18,ay+4);x.fillStyle=C.m;x.fillText("supplier account",ax-34,ay+32);
+const ring=R+52;for(let i=0;i<9;i++){const u=((T*.35+i*.11)%1),atk=i>=5&&p>.3,px=ax+(cx-ax)*u,py=ay+(cy-ay)*u+Math.sin(i*2+T)*10;const stop=atk&&u>.62;const X=stop?ax+(cx-ax)*.62:px;x.fillStyle=atk?C.w:C.n;x.fillRect(X-3,(stop?ay+(cy-ay)*.62:py)-3,6,6);if(stop&&(i==5||i==6)){x.fillStyle=C.l;x.fillText("HELD: stock_update",X-60,ay+(cy-ay)*.62-14)}}
+const r=Math.round(D.sec.risk*seg(p,.25,.55));x.fillStyle=C.l;x.font="bold 40px 'Space Grotesk',sans-serif";x.fillText(r,cx-18,cy+R+90);x.font="11px 'JetBrains Mono',monospace";x.fillStyle=C.m;x.fillText("RISK SCORE  "+D.sec.reasons.join(" · "),cx-120,cy+R+112);
+const bn=Math.floor(seg(p,.7,.95)*9);for(let i=0;i<9;i++){const bx=W*.06+i*(W*.1);x.strokeStyle=i<bn?C.l:C.bd;x.strokeRect(bx,H*.8,W*.08,26);if(i<bn){x.fillStyle=C.m;x.fillText("#"+(i+1)+" "+D.hashes[i%D.hashes.length],bx+4,H*.8+16);x.fillStyle=C.l;if(i)x.fillRect(bx-W*.02,H*.8+12,W*.02,2)}}
+if(bn>=9){x.fillStyle=C.l;x.fillText("AUDIT CHAIN VERIFIED ✓",W*.06,H*.8-8)}
+document.getElementById("st").textContent="actions: "+D.sec.actions.join(" → ")}
+/* ---------- IMPACT ---------- */
+function impact(){const t=ease(seg(p,.05,.7)),L=W*.1,B=H*.7,bw=Math.min(90,W*.08);
+const groups=[["Resolution (h)",D.ev.resolution_hours.baseline.mean,D.ev.resolution_hours.autonexus.mean,D.ev.resolution_hours.improvement_pct],["Route cost",D.ev.route_cost.baseline.mean,D.ev.route_cost.autonexus.mean,D.ev.route_cost.improvement_pct]];
+const mx_=Math.max(...groups.flatMap(g=>[g[1],g[2]]));groups.forEach((g,i)=>{const gx=L+i*(W*.4);[[g[1],C.n,"baseline"],[g[2],C.l,"AUTONEXUS"]].forEach((b,j)=>{const h=b[0]/mx_*H*.42*t,bx=gx+j*(bw+14);x.fillStyle=b[1];x.fillRect(bx,B-h,bw,h);x.fillStyle=C.w;x.font="12px 'JetBrains Mono',monospace";x.fillText((b[0]*t).toFixed(1),bx,B-h-8);x.fillStyle=C.m;x.fillText(b[2],bx,B+16)});x.fillStyle=C.l;x.font="bold 30px 'Space Grotesk',sans-serif";x.fillText("-"+(g[3]*t).toFixed(1)+"%",gx,B-H*.46);x.font="11px 'JetBrains Mono',monospace";x.fillStyle=C.m;x.fillText(g[0],gx,B+36)});
+document.getElementById("st").textContent="(baseline-autonexus)/baseline×100 — synthetic simulation, not real-world validated"}
+/* ---------- FINALE ---------- */
+function finale(){const cx=W*.5,cy=H*.38;for(let i=0;i<6;i++){const r=((T*60+i*60)%360);x.strokeStyle=i%2?C.b:C.l;x.globalAlpha=1-r/360;x.beginPath();x.arc(cx,cy,r,0,7);x.stroke()}x.globalAlpha=1;
+NK.forEach((n,i)=>{const a=T*.3+i*6.28/NK.length,px=cx+Math.cos(a)*H*.22,py=cy+Math.sin(a)*H*.22;x.fillStyle=C.n;x.beginPath();x.arc(px,py,6,0,7);x.fill();x.strokeStyle=C.bd;x.beginPath();x.moveTo(cx,cy);x.lineTo(px,py);x.stroke()});x.fillStyle=C.l;x.beginPath();x.arc(cx,cy,9,0,7);x.fill()}
+const SCENES=[hero,network,floor,federated,security,impact,finale];
+function frame(t){T=t/1000;if(lenis)lenis.raf(t);x.fillStyle="rgba(3,4,7,"+(sec==0?.22:1)+")";x.fillRect(0,0,W,H);if(sec!=1&&sec!=3&&sec!=4&&sec!=5)document.getElementById("st").textContent=sec==2?document.getElementById("st").textContent:"";SCENES[sec]();requestAnimationFrame(frame)}
+size();scroll();requestAnimationFrame(frame);window.__scene=()=>({sec,p});refreshLiveData();setInterval(refreshLiveData,30000);
+</script></html>

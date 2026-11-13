@@ -1,0 +1,14 @@
+{
+  "name": "autonexus-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:motion": "esbuild ui/app/motion-entry.js --bundle --format=iife --target=es2020 --outfile=ui/app/motion.bundle.js"
+  },
+  "dependencies": {
+    "motion": "^14.13.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+httpx<0.28
+python-multipart
+scikit-learn
+numpy
+scipy
+sqlalchemy
+simpy
+ortools
+pytesseract
+pillow
+xgboost
+shap
+websockets
+PyMuPDF
+faster-whisper>=1.1,<2

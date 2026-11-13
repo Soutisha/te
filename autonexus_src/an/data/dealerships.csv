@@ -1,0 +1,6 @@
+dealership_id,name,lat,lon,city,branch_code
+DealerA,AutoNexus Kolkata Central,22.5726,88.3639,Kolkata,DealerA
+DealerB,AutoNexus Salt Lake,22.5867,88.417,Kolkata,DealerB
+DealerC,AutoNexus Howrah,22.5958,88.2636,Kolkata,DealerC
+DealerD,AutoNexus New Town (satellite),22.5792,88.4798,Kolkata,DealerD
+DealerE,AutoNexus Rajarhat (satellite),22.623,88.446,Kolkata,DealerE

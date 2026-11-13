@@ -1,0 +1,7 @@
+quotation_id,supplier_id,part_id,unit_price,lead_days,valid_days
+Q1,V1,P000,1920,3,14
+Q2,V2,P000,2040,4,14
+Q3,V3,P000,2160,5,14
+Q4,V4,P000,2280,6,14
+Q5,V5,P000,2400,7,14
+Q6,V6,P000,2520,8,14

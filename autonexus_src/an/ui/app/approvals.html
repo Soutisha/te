@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Waiting for your OK — AutoNexus</title>
+  <link rel="stylesheet" href="/app/shell.css"/>
+</head>
+<body>
+<div class="app">
+  <div id="side"></div>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Waiting for your OK</h1>
+        <p>High-impact stock moves and purchases need a manager decision before anything leaves the shelf.</p>
+      </div>
+      <button class="btn" id="reload">Refresh</button>
+    </div>
+    <div class="auth-bar" id="auth"></div>
+    <div class="card">
+      <h3>Pending and recent approvals</h3>
+      <p class="sub">Approve only if the donor branch can spare the stock and the customer job is real.</p>
+      <table>
+        <thead><tr><th>ID</th><th>Type</th><th>Status</th><th>Requested by</th><th>Action</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="5" class="muted">Sign in to load</td></tr></tbody>
+      </table>
+      <p class="err" id="err"></p>
+      <p class="okmsg" id="ok"></p>
+    </div>
+  </main>
+</div>
+<script src="/app/api.js"></script>
+<script>
+document.getElementById("side").innerHTML = sideNav(); navActive(); authBar();
+async function load() {
+  document.getElementById("err").textContent = "";
+  try {
+    const list = await AN.approvals();
+    const rows = Array.isArray(list) ? list : (list.items || list.approvals || []);
+    document.getElementById("rows").innerHTML = rows.map(a => {
+      const id = a.id;
+      const st = a.status || "";
+      const pill = st === "pending" ? "warn" : st === "executed" || st === "approved" ? "ok" : "bad";
+      const actions = st === "pending" ? `
+        <button class="btn primary" data-id="${id}" data-d="approve">Approve</button>
+        <button class="btn danger" data-id="${id}" data-d="reject">Reject</button>` : "—";
+      return `<tr>
+        <td class="mono">${id}</td><td>${a.action_type||"—"}</td>
+        <td><span class="pill ${pill}">${st}</span></td>
+        <td>${a.requested_by||"—"}</td><td>${actions}</td></tr>`;
+    }).join("") || '<tr><td colspan="5" class="muted">Nothing waiting</td></tr>';
+    document.querySelectorAll("button[data-d]").forEach(b => b.onclick = async () => {
+      try {
+        const r = await AN.decide(b.dataset.id, b.dataset.d, b.dataset.d === "approve" ? "Approved from app shell" : "Rejected from app shell");
+        document.getElementById("ok").textContent = `${b.dataset.id} → ${r.status || b.dataset.d}`;
+        load();
+      } catch (e) { document.getElementById("err").textContent = e.message; }
+    });
+  } catch (e) { document.getElementById("err").textContent = e.message; }
+}
+document.getElementById("reload").onclick = load;
+window.onAuth = load;
+load();
+</script>
+</body>
+</html>

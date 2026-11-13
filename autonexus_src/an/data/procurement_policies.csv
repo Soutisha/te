@@ -1,0 +1,4 @@
+policy_id,rule,limit
+POL-1,manager approval above,50000
+POL-2,restricted supplier prohibited,0
+POL-3,single PO max,200000

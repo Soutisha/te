@@ -1,0 +1,19 @@
+technician_id,name,dealership_id,skills,shift,available
+T00,Tech 00,DealerA,ac|brakes,12-20,1
+T01,Tech 01,DealerB,electrical|brakes,08-16,1
+T02,Tech 02,DealerC,tyres|ac,10-18,1
+T03,Tech 03,DealerA,engine|tyres,12-20,1
+T04,Tech 04,DealerB,tyres|brakes,10-18,1
+T05,Tech 05,DealerC,electrical|tyres,10-18,1
+T06,Tech 06,DealerA,electrical|brakes,08-16,1
+T07,Tech 07,DealerB,electrical|tyres,12-20,1
+T08,Tech 08,DealerC,tyres|electrical,12-20,1
+T09,Tech 09,DealerA,tyres|brakes,10-18,1
+T10,Tech 10,DealerB,brakes|electrical,10-18,1
+T11,Tech 11,DealerC,electrical|brakes,10-18,1
+T12,Tech 12,DealerA,ac|brakes,12-20,1
+T13,Tech 13,DealerB,ac|tyres,10-18,1
+T14,Tech 14,DealerC,brakes|engine,12-20,1
+T15,Tech 15,DealerA,electrical|tyres,12-20,1
+T16,Tech 16,DealerB,tyres|brakes,08-16,1
+T17,Tech 17,DealerC,electrical|engine,10-18,1

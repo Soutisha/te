@@ -1,0 +1,21 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>AUTONEXUS AI 2.0</title>
+<style>body{margin:0;background:#030407;color:#F5F7FA;font-family:Inter,system-ui,sans-serif;overflow-x:hidden}canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+.w{position:relative;z-index:1;padding:14vh 6vw 8vh}h1{font:700 clamp(30px,7vw,72px)/1.05 'Space Grotesk',sans-serif;margin:0}h1 b{color:#2678f5}p{color:#929BAA;max-width:620px}
+a,button{display:inline-block;background:#1558C9;color:#F5F7FA;padding:12px 18px;margin:6px 6px 0 0;text-decoration:none;font:13px 'JetBrains Mono',monospace;border:0;cursor:pointer}a.l{background:#2678f5;color:#030407}
+section{position:relative;z-index:1;padding:10vh 6vw;border-top:1px solid #202A39}.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.c{background:#111827;border:1px solid #202A39;padding:14px;font-size:13px;color:#929BAA}.c b{color:#F5F7FA;display:block;margin-bottom:6px}</style>
+<canvas id=cv></canvas>
+<div class=w><h1>THE FUTURE OF<br>AUTOMOTIVE OPERATIONS<br>IS <b>AUTONOMOUS.</b></h1><p>Predict disruptions. Eliminate operational bottlenecks. Secure every decision. One intelligent automotive ecosystem.</p>
+<a class=l href="/">OPEN APPLICATION</a><button onclick="reveal()">REVEAL</button><a href="index.html">DIJKSTRA LAB</a><a href="twin3d.html">DEALERTWIN 3D</a></div>
+<section><div class=g><div class=c><b>Service Parts Shortage Resolver</b>Detect, search, route, approve, execute, verify.</div><div class=c><b>Dispatch Orchestrator</b>Hungarian skill matching, SimPy bay simulation.</div><div class=c><b>Document Extraction</b>Tesseract OCR, invoice vs PO.</div><div class=c><b>Voice Inventory</b>Speech to confirmed stock update.</div></div></section>
+<section><div class=g><div class=c><b>Measured impact</b>Baseline vs integrated over 30 identical synthetic runs — see Evaluation. Not real-world validated.</div><div class=c><b>Trust</b>RBAC, JWT, hash-chained audit, human approval.</div></div></section>
+<script>const cv=document.getElementById("cv"),x=cv.getContext("2d");let W,H,pts=[],mx=-999,my=-999,prog=0,target=0;
+const car=[[0,.5],[.1,.5],[.18,.32],[.38,.22],[.62,.22],[.8,.34],[.92,.45],[1,.5],[1,.62],[0,.62],[0,.5]];
+function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;pts=[];const sx=Math.min(W*.8,900),ox=(W-sx)/2,oy=H*.45,sy=sx*.6;
+for(let i=0;i<car.length-1;i++){for(let t=0;t<1;t+=.012){const a=car[i],b=car[i+1];pts.push({tx:ox+(a[0]+(b[0]-a[0])*t)*sx,ty:oy+(a[1]+(b[1]-a[1])*t-.4)*sy})}}
+for(const cx of[.22,.78]){for(let a=0;a<6.28;a+=.15)pts.push({tx:ox+cx*sx+Math.cos(a)*sx*.06,ty:oy+.22*sy+Math.sin(a)*sx*.06})}
+pts.forEach(p=>{p.x=Math.random()*W;p.y=Math.random()*H;p.vx=0;p.vy=0})}
+function reveal(){target=1}onpointermove=e=>{mx=e.clientX;my=e.clientY};setTimeout(reveal,600);
+function loop(){x.fillStyle="rgba(3,4,7,.25)";x.fillRect(0,0,W,H);prog+=(target-prog)*.02;
+for(const p of pts){const k=.02+.05*prog;p.vx+=(p.tx-p.x)*k*prog;p.vy+=(p.ty-p.y)*k*prog;p.vx+=(Math.random()-.5)*(1-prog)*.8;p.vy+=(Math.random()-.5)*(1-prog)*.8;const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);if(d<80){p.vx+=dx/d*2;p.vy+=dy/d*2}p.vx*=.85;p.vy*=.85;p.x+=p.vx;p.y+=p.vy;
+x.fillStyle=Math.abs(p.y-(H*.3+((performance.now()/6)%(H*.5))))<6?"#2678f5":"#2385FF";x.fillRect(p.x,p.y,2,2)}requestAnimationFrame(loop)}
+onresize=size;size();loop()</script>

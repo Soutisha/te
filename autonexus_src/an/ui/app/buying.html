@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Buying parts — AutoNexus</title>
+  <link rel="stylesheet" href="/app/shell.css"/>
+</head>
+<body>
+<div class="app">
+  <div id="side"></div>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Buying parts &amp; supplies</h1>
+        <p>Rank suppliers by reliability and lead time — not by lowest price alone.</p>
+      </div>
+    </div>
+    <div class="auth-bar" id="auth"></div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="actions">
+        <input id="part" value="P000" style="background:var(--bg);border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:8px"/>
+        <input id="qty" type="number" value="20" style="background:var(--bg);border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:8px;width:100px"/>
+        <button class="btn primary" id="go">Rank suppliers</button>
+      </div>
+      <p class="sub" style="margin-top:8px">Restricted suppliers are blocked by policy even if cheaper.</p>
+    </div>
+    <div class="card">
+      <h3>Recommended suppliers</h3>
+      <table>
+        <thead><tr><th>Supplier</th><th>Score / rank</th><th>Detail</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="3" class="muted">Sign in and rank</td></tr></tbody>
+      </table>
+      <p class="err" id="err"></p>
+    </div>
+  </main>
+</div>
+<script src="/app/api.js"></script>
+<script>
+document.getElementById("side").innerHTML = sideNav(); navActive(); authBar();
+document.getElementById("go").onclick = async () => {
+  document.getElementById("err").textContent = "";
+  try {
+    const r = await AN.suppliers(document.getElementById("part").value.trim(), +document.getElementById("qty").value || 10);
+    const list = r.ranked || r.suppliers || r || [];
+    const arr = Array.isArray(list) ? list : [];
+    document.getElementById("rows").innerHTML = arr.map((s,i) => {
+      const name = s.name || s.supplier_id || s.id || ("#"+(i+1));
+      const score = s.score ?? s.rank ?? s.reliability ?? "—";
+      const detail = s.reason || s.explanation || JSON.stringify(s);
+      return `<tr><td>${name}</td><td>${score}</td><td class="mono muted">${detail}</td></tr>`;
+    }).join("") || `<tr><td colspan="3" class="muted">${JSON.stringify(r).slice(0,300)}</td></tr>`;
+  } catch (e) { document.getElementById("err").textContent = e.message; }
+};
+</script>
+</body>
+</html>

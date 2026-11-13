@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Situation board — AutoNexus Kolkata</title>
+  <link rel="stylesheet" href="/app/shell.css"/>
+</head>
+<body>
+<div class="app">
+  <div id="side"></div>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Situation board</h1>
+        <p>What needs attention across Kolkata Central, Salt Lake, and Howrah — in plain language.</p>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="btn-recovery">Request brake-pad transfer</button>
+        <a class="btn" href="/world" target="_blank">Open live map</a>
+      </div>
+    </div>
+    <div class="auth-bar" id="auth"></div>
+    <div id="msg"></div>
+
+    <div class="alert" id="situation">
+      <h2>Brake pads are out at Kolkata Central</h2>
+      <p><b>What is happening?</b> Stock of BrakePad (P000) is <b>0</b> at Kolkata Central. Open repair jobs need parts.</p>
+      <p><b>Why the business cares?</b> Service bays wait idle; customers are delayed; revenue is at risk.</p>
+      <p><b>What should you do?</b> Sign in, then click <b>Request brake-pad transfer</b>. Prefer Salt Lake (18 on hand) or Dum Dum hub (40).</p>
+    </div>
+
+    <div class="grid four" id="kpis">
+      <div class="card"><div class="label">Pending approvals</div><div class="kpi amber" id="k-ap">—</div></div>
+      <div class="card"><div class="label">Transfers in transit</div><div class="kpi blue" id="k-tr">—</div></div>
+      <div class="card"><div class="label">Open workflows</div><div class="kpi" id="k-wf">—</div></div>
+      <div class="card"><div class="label">Ledger / audit</div><div class="kpi lime" id="k-ok">—</div></div>
+    </div>
+
+    <div class="grid two" style="margin-top:14px">
+      <div class="card">
+        <h3>BrakePad stock by branch</h3>
+        <p class="sub">From twin state · refreshes after sign-in</p>
+        <table>
+          <thead><tr><th>Branch</th><th>On hand</th><th>Need</th><th>Status</th></tr></thead>
+          <tbody id="stock-rows"><tr><td colspan="4" class="muted">Sign in to load live ledger numbers</td></tr></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>What happens when you request a transfer</h3>
+        <p class="sub">Real workflow — not a mock button</p>
+        <ol class="muted" style="margin:0;padding-left:18px;line-height:1.8">
+          <li>System measures shortage at Kolkata Central</li>
+          <li>Ranks donors (Salt Lake, Howrah, hubs)</li>
+          <li>Reserves stock and creates an approval</li>
+          <li>Manager approves → transfer dispatches</li>
+          <li>Receiving branch confirms → repair can continue</li>
+        </ol>
+        <p class="mono muted" style="margin-top:12px" id="last-wf"></p>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="/app/api.js"></script>
+<script>
+document.getElementById("side").innerHTML = sideNav();
+navActive();
+authBar();
+
+async function refresh() {
+  try {
+    const o = await AN.overview();
+    document.getElementById("k-ap").textContent = o.pending_approvals ?? "—";
+    document.getElementById("k-tr").textContent = o.in_transit_transfers ?? "—";
+    document.getElementById("k-wf").textContent = o.open_workflows ?? "—";
+    const ok = o.ledger && (o.audit && o.audit.valid !== false);
+    document.getElementById("k-ok").textContent = ok ? "OK" : "Check";
+  } catch (e) {
+    document.getElementById("k-ok").textContent = "Sign in";
+  }
+  try {
+    const t = await AN.twin("P000");
+    const names = {
+      DealerA: "Kolkata Central", DealerB: "Salt Lake", DealerC: "Howrah",
+      WH1: "Dum Dum hub", WH2: "Howrah Yard hub"
+    };
+    const tb = document.getElementById("stock-rows");
+    tb.innerHTML = (t.sites || []).map(s => {
+      const need = s.open_need || 0;
+      const status = s.on_hand === 0 && need > 0 ? '<span class="pill bad">Stockout</span>'
+        : s.on_hand < need ? '<span class="pill warn">Tight</span>'
+        : '<span class="pill ok">OK</span>';
+      return `<tr><td>${names[s.id]||s.id}</td><td>${s.on_hand}</td><td>${need}</td><td>${status}</td></tr>`;
+    }).join("") || '<tr><td colspan="4" class="muted">No sites</td></tr>';
+  } catch (e) { /* need auth */ }
+}
+
+window.onAuth = refresh;
+document.getElementById("btn-recovery").onclick = async () => {
+  const msg = document.getElementById("msg");
+  msg.innerHTML = "";
+  try {
+    const r = await AN.startShortage("DealerA", "P000", 2);
+    msg.innerHTML = `<div class="okmsg">Workflow ${r.id || r.workflow_id || ""} → <b>${r.status}</b>. Go to Approvals to confirm.</div>`;
+    document.getElementById("last-wf").textContent = JSON.stringify({status: r.status, approvals: r.approvals, transfer: r.transfer_plan}, null, 0);
+    refresh();
+  } catch (e) {
+    msg.innerHTML = `<div class="err">${e.message}</div>`;
+  }
+};
+refresh();
+</script>
+</body>
+</html>

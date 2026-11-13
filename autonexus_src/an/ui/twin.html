@@ -1,0 +1,15 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>AUTONEXUS DealerTwin (2D)</title>
+<style>body{margin:0;background:#030407;color:#F5F7FA;font-family:Inter,system-ui,sans-serif}h1{font:700 20px 'Space Grotesk',sans-serif;padding:12px 16px;margin:0}h1 b{color:#2678f5}
+canvas{width:100%;max-width:760px;display:block;margin:auto;background:#080A0D;border:1px solid #202A39}button{background:#1558C9;color:#F5F7FA;border:0;padding:10px 12px;margin:3px;font:12px monospace}#c,#l{text-align:center;padding:8px;font:12px monospace;color:#929BAA}</style>
+<h1>DealerTwin — <b>live route replay</b></h1><canvas id=cv width=760 height=480></canvas><div id=c></div><div id=l></div>
+<script>const D={"nodes": {"DealerA": [18.91766882516244, 3.0], "DealerB": [26.2858464384835, 6.767175572518942], "DealerC": [5.0, 9.198473282442698], "DealerD": [35.0, 4.763358778625686], "DealerE": [30.309898242368277, 16.465648854962115], "WH1": [23.92691951896511, 17.0], "WH2": [11.438482886217217, 6.312977099236598]}, "edges": [["DealerA", "DealerB"], ["DealerA", "WH2"], ["DealerA", "WH1"], ["DealerB", "WH1"], ["DealerB", "DealerD"], ["DealerC", "WH2"], ["DealerC", "DealerB"], ["DealerD", "DealerE"], ["WH1", "DealerE"], ["DealerC", "DealerD"]], "first": ["WH2", "DealerA"], "second": ["DealerB", "DealerA"], "stock": {"DealerA": 0, "DealerB": 18, "DealerC": 4, "DealerD": 16, "DealerE": 22, "WH1": 40, "WH2": 20}, "destination": "DealerA", "part": "P000", "part_name": "BrakePad"},N=D.nodes,x=document.getElementById("cv").getContext("2d");let k=0,route=D.first,seg=0,f=0,t=null,log=[];
+const P=n=>[60+(N[n][0]+30)*7.2,280-N[n][1]*5];
+function draw(){x.clearRect(0,0,760,480);for(const[a,b]of D.edges){x.strokeStyle="#1558C9";x.beginPath();x.moveTo(...P(a));x.lineTo(...P(b));x.stroke()}
+x.strokeStyle="#2678f5";x.lineWidth=3;x.beginPath();route.forEach((n,i)=>i?x.lineTo(...P(n)):x.moveTo(...P(n)));x.stroke();x.lineWidth=1;
+for(const n in N){const[a,b]=P(n);x.fillStyle="#2385FF";x.beginPath();x.arc(a,b,8,0,7);x.fill();x.fillStyle="#F5F7FA";x.fillText(n+" ("+(D.stock[n]??"")+")",a+10,b-8)}
+if(seg<route.length-1){const[a,b]=P(route[seg]),[c,d]=P(route[seg+1]);x.fillStyle="#2678f5";x.fillRect(a+(c-a)*f-6,b+(d-b)*f-6,12,12)}}
+function tick(){f+=.04;if(f>=1){f=0;seg++;if(seg>=route.length-1){clearInterval(t);log.push("delivered; stock updated")}}draw();document.getElementById("l").textContent=D.events.join(" | ")}
+function go(){clearInterval(t);seg=0;f=0;t=setInterval(tick,40)}
+function closeRoad(){route=D.second;go()}
+function reset(){clearInterval(t);route=D.first;seg=0;f=0;draw()}
+document.getElementById("c").innerHTML='<button onclick="go()">DISPATCH</button><button onclick="closeRoad()">CLOSE ROAD + REROUTE</button><button onclick="reset()">RESET</button>';draw()</script>
